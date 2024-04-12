@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Practicas</string>
+
+
+    <!--    Home Page   -->
+    <string name="practicasAndroid">Prácticas Android</string>
+    <string name="practicas_practica1">Práctica 1</string>
+    <string name="practicas_practica2">Práctica 2</string>
+    <string name="pendiente_de_pago">Pendiente de pago</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="consumo">Consumo</string>
+    <string name="facturas">Facturas</string>
+
+</resources>
