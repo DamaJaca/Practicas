@@ -17,7 +17,6 @@ class FacturasAdapter (private var facturasList :List<FacturaModel> = emptyList(
     override fun getItemCount(): Int = facturasList.size
 
     override fun onBindViewHolder(holder: FacturasViewHolder, position: Int) {
-        TODO("Not yet implemented")
     }
 
     fun updateList(lista :List<FacturaModel>){

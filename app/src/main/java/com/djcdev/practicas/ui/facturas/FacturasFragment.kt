@@ -49,7 +49,6 @@ class FacturasFragment : Fragment() {
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     facturasViewModel.facturas.collect {
-                        facturasAdapter
                     }
                 }
             }
