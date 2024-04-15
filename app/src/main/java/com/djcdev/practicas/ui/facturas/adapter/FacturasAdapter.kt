@@ -17,10 +17,11 @@ class FacturasAdapter (private var facturasList :List<FacturaModel> = emptyList(
     override fun getItemCount(): Int = facturasList.size
 
     override fun onBindViewHolder(holder: FacturasViewHolder, position: Int) {
+        holder.render (facturasList[position])
     }
 
     fun updateList(lista :List<FacturaModel>){
-
+        facturasList = lista
         notifyDataSetChanged()
     }
 

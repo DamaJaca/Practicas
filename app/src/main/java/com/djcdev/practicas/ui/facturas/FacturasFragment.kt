@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentFacturasBinding
+import com.djcdev.practicas.domain.model.FacturaModel
 import com.djcdev.practicas.ui.facturas.adapter.FacturasAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,6 +30,7 @@ class FacturasFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        facturasViewModel.getFacturas()
         initUi()
     }
 
@@ -41,22 +44,40 @@ class FacturasFragment : Fragment() {
     }
 
     private fun initUi() {
-        initRecyclerView()
+
         initUIState()
     }
 
     private fun initUIState() {
+
             lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    facturasViewModel.facturas.collect {
+                    facturasViewModel.state.collect() {
+                        when (it){
+                            is FacturasState.Error -> errorState()
+                            FacturasState.Loading -> loadingState()
+                            is FacturasState.Success -> initRecyclerView(it.facturaModel)
+                        }
                     }
                 }
             }
 
     }
 
-    private fun initRecyclerView() {
+    private fun loadingState() {
+        binding.progressBar.isVisible=true
+    }
+
+    private fun errorState() {
+        binding.progressBar.isVisible=false
+        binding.tvFacturas.text= getString(R.string.error_facturas)
+    }
+
+    private fun initRecyclerView(facturas : List <FacturaModel>) {
+
+        binding.progressBar.isVisible=false
         facturasAdapter = FacturasAdapter()
+        facturasAdapter.updateList(facturas)
         binding.rvFacturas.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = facturasAdapter

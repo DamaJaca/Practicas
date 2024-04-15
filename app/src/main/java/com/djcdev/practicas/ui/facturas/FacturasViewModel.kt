@@ -15,14 +15,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FacturasViewModel @Inject constructor( private val getFacturasUseCase: GetFacturasUseCase) :ViewModel() {
-    private var _facturas = MutableStateFlow<List<FacturaModel>>(emptyList())
-    val facturas :StateFlow<List<FacturaModel>> =_facturas
+    private var _state = MutableStateFlow<FacturasState>(FacturasState.Loading)
+    val state: StateFlow<FacturasState> = _state
 
     fun getFacturas (){
         viewModelScope.launch {
+
             val result: List<FacturaModel>? = withContext(Dispatchers.IO){getFacturasUseCase()}
             if (result!= null){
-                _facturas.value = result
+                _state.value = FacturasState.Success(result)
+            }
+            else{
+                _state.value=FacturasState.Error("Error al recoger la información (FacturasViewModel)")
             }
         }
     }
