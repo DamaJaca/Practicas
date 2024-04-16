@@ -1,10 +1,14 @@
 package com.djcdev.practicas.data.network
 
+import android.content.Context
+import androidx.room.Room
 import com.djcdev.practicas.data.RepositoryImpl
+import com.djcdev.practicas.data.database.FacturasDataBase
 import com.djcdev.practicas.domain.Repository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,9 +41,10 @@ object NetworkModule {
         return retrofit.create(ApiService::class.java)
     }
 
+
     @Provides
-    fun provideRepository (apiService: ApiService):Repository{
-        return RepositoryImpl(apiService)
+    fun provideRepository (apiService: ApiService, db: FacturasDataBase):Repository{
+        return RepositoryImpl(apiService, db)
     }
 
 }

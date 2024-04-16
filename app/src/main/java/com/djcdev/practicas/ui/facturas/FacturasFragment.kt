@@ -18,6 +18,7 @@ import com.djcdev.practicas.domain.model.FacturaModel
 import com.djcdev.practicas.ui.facturas.adapter.FacturasAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import androidx.appcompat.app.AppCompatActivity
 
 @AndroidEntryPoint
 class FacturasFragment : Fragment() {
@@ -44,8 +45,17 @@ class FacturasFragment : Fragment() {
     }
 
     private fun initUi() {
-
+        initListeners()
         initUIState()
+    }
+
+    private fun initListeners() {
+        binding.ivSettingsFacturas.setOnClickListener{
+            //Crear ajustes
+        }
+        binding.backButtomFacturas.setOnClickListener{
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun initUIState() {
@@ -82,5 +92,7 @@ class FacturasFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = facturasAdapter
         }
+
+
     }
 }

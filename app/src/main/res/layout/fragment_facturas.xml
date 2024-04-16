@@ -14,6 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/backButtomFacturas"
             android:rotation="180"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
             />
 
         <ImageView
+            android:id="@+id/ivSettingsFacturas"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@drawable/filtericon_3x"

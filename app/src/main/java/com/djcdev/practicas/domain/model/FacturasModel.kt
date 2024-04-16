@@ -1,5 +1,6 @@
 package com.djcdev.practicas.domain.model
 
+import com.djcdev.practicas.data.database.entities.FacturaEntity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -11,3 +12,8 @@ data class FacturaModel (
     val importe:Double,
     val fecha:String
 )
+{
+    fun toDatabase():FacturaEntity{
+        return FacturaEntity(estado=estado,importe=importe,fecha=fecha)
+    }
+}
