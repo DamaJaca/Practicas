@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimen_big_36">36dp</dimen>
+    <dimen name="dimen_big_48">48dp</dimen>
+    <dimen name="dimen_normal_24">24dp</dimen>
+    <dimen name="tool_bar_dimen">56dp</dimen>
+</resources>
