@@ -4,4 +4,5 @@
     <dimen name="dimen_big_48">48dp</dimen>
     <dimen name="dimen_normal_24">24dp</dimen>
     <dimen name="tool_bar_dimen">56dp</dimen>
+    <dimen name="normal_16dp">16dp</dimen>
 </resources>

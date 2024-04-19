@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tolls="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/normal_16dp"
+        android:orientation="vertical">
+
+        <Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tool_bar_dimen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/btnCloseFilterFacturas"
+                android:layout_width="@dimen/dimen_big_48"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:padding="@dimen/normal_16dp"
+                android:src="@drawable/close_icon" />
+        </Toolbar>
+
+        <TextView
+            style="@style/Title_Basic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/normal_16dp"
+            android:text="@string/factuas_filter" />
+
+        <TextView
+            style="@style/subTitle_Basic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/with_date_title"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="@dimen/normal_16dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="@dimen/dimen_normal_24">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/from_date"
+                    android:textColor="@color/practice_grey"
+                    android:textStyle="bold"/>
+                <Button
+                    android:id="@+id/btnFromFacturasFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/practice_light_grey"
+                    android:text="@string/date_filter"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout><LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="@dimen/dimen_normal_24">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/to_date"
+                android:textColor="@color/practice_grey"
+                android:textStyle="bold"/>
+            <Button
+                android:id="@+id/btnToFacturasFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/practice_light_grey"
+                android:text="@string/date_filter"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginVertical="@dimen/normal_16dp"/>
+
+
+        <TextView
+            style="@style/subTitle_Basic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_by_price"
+            android:layout_marginVertical="@dimen/normal_16dp"/>
+        <com.google.android.material.slider.Slider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stepSize ="1"
+            android:valueFrom ="0"
+            android:valueTo ="100"
+            android:id="@+id/sliderPriceFactura"
+            app:tickColor="@color/transparent"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginVertical="@dimen/normal_16dp"/>
+
+        <TextView
+            style="@style/subTitle_Basic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_by_state"
+            android:layout_marginVertical="@dimen/normal_16dp"/>
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/pagadas"
+            android:id="@+id/cbPaid"
+            />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbNulled"
+            android:drawableTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tolls:checked="true"
+            android:gravity="start"
+            android:text="@string/anuladas" />
+
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/cuota_fija"
+            android:id="@+id/cbCuotaFija"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/pendiente_de_pago"
+            android:id="@+id/cbPendientePago"/>
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/plan_de_pago"
+            android:id="@+id/cbPayPlan"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_big_48"
+            android:text="@string/apply"
+            android:id="@+id/btnApplyFilter"
+            android:layout_marginVertical="@dimen/normal_16dp"
+            android:backgroundTint="@color/green" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_big_48"
+            android:text="@string/eliminar_filtros"
+            android:id="@+id/btnClearFilters"
+            android:layout_marginBottom="@dimen/dimen_normal_24"
+            android:backgroundTint="@color/practice_light_grey"
+            android:textColor="@color/black"/>
+
+
+
+    </LinearLayout>
+
+</ScrollView>

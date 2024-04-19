@@ -16,5 +16,18 @@
     <string name="information_factura_title">Información</string>
     <string name="not_enabled_function">Esta funcionalidad no esta disponible</string>
     <string name="close">Cerrar</string>
+    <string name="factuas_filter">Filtrar Facturas</string>
+    <string name="with_date_title">Con fecha de emisión</string>
+    <string name="date_filter">día/mes/año</string>
+    <string name="to_date">Hasta:</string>
+    <string name="from_date">Desde:</string>
+    <string name="filter_by_price">Por un importe</string>
+    <string name="filter_by_state">Por estado</string>
+    <string name="plan_de_pago">Plan de pago</string>
+    <string name="cuota_fija">Cuota Fija</string>
+    <string name="anuladas">Anuladas</string>
+    <string name="pagadas">Pagadas</string>
+    <string name="apply">Aplicar</string>
+    <string name="eliminar_filtros">Eliminar Filtros</string>
 
 </resources>
