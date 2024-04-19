@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navArgs
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentFilterBinding
 import com.djcdev.practicas.ui.facturas.FacturasState
@@ -28,6 +29,8 @@ class FilterFragment : Fragment() {
     private val filterViewModel by activityViewModels<FacturasViewModel>()
     val binding get() = _binding!!
 
+    private val args: FilterFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +46,8 @@ class FilterFragment : Fragment() {
 
     private fun initUI() {
         initListeners()
+        binding.sliderPriceFactura.stepSize=0.01f
+        binding.sliderPriceFactura.valueTo=args.type
     }
 
     private fun initListeners() {

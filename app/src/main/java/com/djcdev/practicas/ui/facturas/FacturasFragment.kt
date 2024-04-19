@@ -17,6 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navArgument
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentFacturasBinding
@@ -24,6 +25,8 @@ import com.djcdev.practicas.domain.model.FacturaModel
 import com.djcdev.practicas.ui.facturas.adapter.FacturasAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.lang.IllegalStateException
+import javax.inject.Singleton
 
 @AndroidEntryPoint
 class FacturasFragment : Fragment() {
@@ -35,12 +38,13 @@ class FacturasFragment : Fragment() {
     private lateinit var facturasAdapter : FacturasAdapter
 
     private var isDataLoaded = false
+    private var isMaxLoaded = false
+    private var maxImport=120f
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!isDataLoaded) { // Solo carga los datos la primera vez que se crea la vista
             facturasViewModel.getFacturas()
-            Log.d("paco", "Ha entrado al get facturas")
             isDataLoaded = true
         }
         initUi()
@@ -62,11 +66,7 @@ class FacturasFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.ivSettingsFacturas.setOnClickListener{
-            findNavController().navigate(
-                FacturasFragmentDirections.facturasFragment2()
-            )
-        }
+        initNavigation(maxImport)
         binding.backButtomFacturas.setOnClickListener{
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
@@ -76,18 +76,14 @@ class FacturasFragment : Fragment() {
 
 
             lifecycleScope.launch {
-                //repeatOnLifecycle(Lifecycle.State.STARTED) {
                     facturasViewModel.state.collect() {
                         when (it){
                             is FacturasState.Error -> errorState()
                             is FacturasState.Loading -> loadingState()
                             is FacturasState.Success -> {
-                                Log.i("Paco", "en el collect= ${it.facturaModel.toString()}")
-
                                 initRecyclerView(it.facturaModel)}
                         }
                     }
-                //}
             }
 
     }
@@ -107,9 +103,25 @@ class FacturasFragment : Fragment() {
             facturasAdapter = FacturasAdapter { onItemSelected() }
             binding.rvFacturas.layoutManager = LinearLayoutManager(context)
             binding.rvFacturas.adapter = facturasAdapter
-        Log.i("Paco", "en el recyclerview= ${facturas.toString()}")
         // Actualiza los datos del adaptador
         facturasAdapter.updateList(facturas)
+        if(!isMaxLoaded){
+            maxImport =facturasAdapter.getMaxImport()
+            initNavigation(maxImport)
+            isMaxLoaded=true
+        }
+
+
+    }
+
+    private fun initNavigation(maximo: Float) {
+        binding.ivSettingsFacturas.setOnClickListener{
+            findNavController().navigate(
+                FacturasFragmentDirections.facturasFragment2(maximo)
+            )
+
+        }
+
     }
 
     private fun onItemSelected() {

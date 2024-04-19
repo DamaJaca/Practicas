@@ -27,5 +27,9 @@
     <fragment
         android:id="@+id/filterFragment"
         android:name="com.djcdev.practicas.ui.filter.FilterFragment"
-        android:label="FilterFragment" />
+        android:label="FilterFragment" >
+        <argument
+            android:name="type"
+            app:argType="float" />
+    </fragment>
 </navigation>

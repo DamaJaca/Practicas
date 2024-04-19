@@ -79,10 +79,16 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
                 }
             }
         }
-        Log.i("Paco", "ha filtrado la fecha ${facturasFinal.toString()}")
+
+        if (facturasFinal.isNotEmpty()){
+            return facturasFinal
+        }
+        else{
+            return facturas
+        }
 
 
-        return facturasFinal
+
 
     }
 

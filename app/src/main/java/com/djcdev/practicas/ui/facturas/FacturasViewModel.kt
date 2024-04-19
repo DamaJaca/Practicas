@@ -3,6 +3,7 @@ package com.djcdev.practicas.ui.facturas
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.navArgs
 import com.djcdev.practicas.domain.model.FacturaModel
 import com.djcdev.practicas.domain.model.FacturasModel
 import com.djcdev.practicas.domain.usecase.FilterFacturasUseCase
@@ -48,12 +49,9 @@ class FacturasViewModel @Inject constructor(
         fechaFin: String?
     ) {
         viewModelScope.launch {
-            Log.i("Paco", "Ha entrado en la funcion")
-            Log.i("Paco", "Ha entrado en la corrutina")
 
              withContext(Dispatchers.Default) {
 
-                    Log.i("Paco", "ha entrado en la funcion del caso de uso")
                 val filteredResults = filterFacturasUseCase(
                         pendientePago,
                         pagado,
@@ -62,7 +60,6 @@ class FacturasViewModel @Inject constructor(
                         fechaFin
                     )
 
-                Log.d("Paco", "ha devuelve la lista supuestamente ${filteredResults}")
                 _state.value = FacturasState.Success(filteredResults)
 
             }
