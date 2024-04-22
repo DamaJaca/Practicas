@@ -32,14 +32,14 @@ import javax.inject.Singleton
 class FacturasFragment : Fragment() {
 
     private val facturasViewModel by activityViewModels<FacturasViewModel>()
-    private var _binding : FragmentFacturasBinding ? = null
+    private var _binding: FragmentFacturasBinding? = null
     val binding get() = _binding!!
 
-    private lateinit var facturasAdapter : FacturasAdapter
+    private lateinit var facturasAdapter: FacturasAdapter
 
     private var isDataLoaded = false
     private var isMaxLoaded = false
-    private var maxImport=120f
+    private var maxImport = 120f
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,7 +55,7 @@ class FacturasFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFacturasBinding.inflate(layoutInflater, container,false)
+        _binding = FragmentFacturasBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -67,7 +67,7 @@ class FacturasFragment : Fragment() {
 
     private fun initListeners() {
         initNavigation(maxImport)
-        binding.backButtomFacturas.setOnClickListener{
+        binding.backButtomFacturas.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
@@ -75,47 +75,48 @@ class FacturasFragment : Fragment() {
     private fun initUIState() {
 
 
-            lifecycleScope.launch {
-                    facturasViewModel.state.collect() {
-                        when (it){
-                            is FacturasState.Error -> errorState()
-                            is FacturasState.Loading -> loadingState()
-                            is FacturasState.Success -> {
-                                initRecyclerView(it.facturaModel)}
-                        }
+        lifecycleScope.launch {
+            facturasViewModel.state.collect() {
+                when (it) {
+                    is FacturasState.Error -> errorState()
+                    is FacturasState.Loading -> loadingState()
+                    is FacturasState.Success -> {
+                        initRecyclerView(it.facturaModel)
                     }
+                }
             }
+        }
 
     }
 
     private fun loadingState() {
-        binding.progressBar.isVisible=true
+        binding.progressBar.isVisible = true
     }
 
     private fun errorState() {
-        binding.progressBar.isVisible=false
-        binding.tvFacturas.text= getString(R.string.error_facturas)
+        binding.progressBar.isVisible = false
+        binding.tvFacturas.text = getString(R.string.error_facturas)
     }
 
 
     private fun initRecyclerView(facturas: List<FacturaModel>) {
-            binding.progressBar.isVisible=false
-            facturasAdapter = FacturasAdapter { onItemSelected() }
-            binding.rvFacturas.layoutManager = LinearLayoutManager(context)
-            binding.rvFacturas.adapter = facturasAdapter
+        binding.progressBar.isVisible = false
+        facturasAdapter = FacturasAdapter { onItemSelected() }
+        binding.rvFacturas.layoutManager = LinearLayoutManager(context)
+        binding.rvFacturas.adapter = facturasAdapter
         // Actualiza los datos del adaptador
         facturasAdapter.updateList(facturas)
-        if(!isMaxLoaded){
-            maxImport =facturasAdapter.getMaxImport()
+        if (!isMaxLoaded) {
+            maxImport = facturasAdapter.getMaxImport()
             initNavigation(maxImport)
-            isMaxLoaded=true
+            isMaxLoaded = true
         }
 
 
     }
 
     private fun initNavigation(maximo: Float) {
-        binding.ivSettingsFacturas.setOnClickListener{
+        binding.ivSettingsFacturas.setOnClickListener {
             findNavController().navigate(
                 FacturasFragmentDirections.facturasFragment2(maximo)
             )
@@ -125,14 +126,16 @@ class FacturasFragment : Fragment() {
     }
 
     private fun onItemSelected() {
-        val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.dialog_factura_information)
-        val btnClose : Button= dialog.findViewById(R.id.btnCloseDialogFacturas)
-        btnClose.setOnClickListener{
-            dialog.hide()
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Información")
+        builder.setMessage("Esta funcionalidad aún no está disponible")
+        builder.setPositiveButton("Cerrar") { dialog, _ ->
+            dialog.dismiss()
         }
-        dialog.setCanceledOnTouchOutside(false)
+        val dialog: AlertDialog = builder.create()
         dialog.show()
+
 
     }
 

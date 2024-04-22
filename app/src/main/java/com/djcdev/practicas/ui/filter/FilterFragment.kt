@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 @AndroidEntryPoint
@@ -51,8 +52,8 @@ class FilterFragment : Fragment() {
 
     private fun initUI() {
         initListeners()
-        binding.sliderPriceFactura.stepSize=0.01f
-        binding.sliderPriceFactura.valueTo=args.type
+        binding.sliderPriceFactura.stepSize = 0.01f
+        binding.sliderPriceFactura.valueTo = args.type
     }
 
     private fun initListeners() {
@@ -99,24 +100,43 @@ class FilterFragment : Fragment() {
         binding.btnFromFacturasFilter.setOnClickListener {
             val calendar = Calendar.getInstance()
             val datePickerDialog = DatePickerDialog(
-                requireContext(), {DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-                    // Create a new Calendar instance to hold the selected date
+                requireContext(), { DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
                     val selectedDate = Calendar.getInstance()
-                    // Set the selected date using the values received from the DatePicker dialog
                     selectedDate.set(year, monthOfYear, dayOfMonth)
-                    // Create a SimpleDateFormat to format the date as "dd/MM/yyyy"
                     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                    // Format the selected date into a string
                     val formattedDate = dateFormat.format(selectedDate.time)
-                    // Update the TextView to display the selected date with the "Selected Date: " prefix
-                    binding.btnFromFacturasFilter.text = formattedDate
+                    if (binding.btnToFacturasFilter.text =="día/mes/año") {
+                        binding.btnToFacturasFilter.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
+                            Date()
+                        )
+                    }
+                        binding.btnFromFacturasFilter.text = formattedDate
                 },
 
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
-            // Show the DatePicker dialog
+            datePickerDialog.show()
+        }
+        binding.btnToFacturasFilter.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val datePickerDialog = DatePickerDialog(
+                requireContext(), { DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+                    val selectedDate = Calendar.getInstance()
+                    selectedDate.set(year, monthOfYear, dayOfMonth)
+                    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val formattedDate = dateFormat.format(selectedDate.time)
+                    if (binding.btnFromFacturasFilter.text =="día/mes/año") {
+                        binding.btnFromFacturasFilter.text = formattedDate
+                    }
+                    binding.btnToFacturasFilter.text = formattedDate
+                },
+
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
             datePickerDialog.show()
         }
 

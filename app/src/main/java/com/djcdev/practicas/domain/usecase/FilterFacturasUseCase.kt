@@ -5,6 +5,7 @@ import com.djcdev.practicas.domain.Repository
 import com.djcdev.practicas.domain.model.FacturaModel
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class FilterFacturasUseCase @Inject constructor (private val repository: Repository) {
@@ -15,10 +16,8 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
         fechaInicio: String?,
         fechaFin: String?
     ): List<FacturaModel> {
-        Log.i("Paco", "ha entrado en la funcion del caso de uso")
         var facturas: List<FacturaModel> = repository.getFacturasFromDatabase()!!
 
-        Log.i("Paco", "la base de datos ha devuelto: ${facturas.toString()}")
 
         var facturasFiltradas: MutableList<FacturaModel> = mutableListOf()
 
@@ -29,7 +28,6 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
             facturasFiltradas.clear()
             facturasFiltradas = facturas.filter { it.estado == "Pendiente de pago" }.toMutableList()
             facturasFinal.addAll(facturasFiltradas)
-            Log.i("Paco", "ha despues del filtro de pendiente de pago= ${facturasFinal.toString()}")
         }
 
         //Comprobamos las que estan pagadas
@@ -53,26 +51,24 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
 
         }
 
-        Log.i("Paco", "ha filtrado todo hasta la fecha")
 
         //Ahora, ultimo filtrado por fecha
         if (fechaInicio != null && fechaFin != null) {
             //Si no se ha hecho ningun filtro previo:
             if (pagada == null && pendientePago == null && importeMax == null) {
-                facturas.map {
-                    if (stringToDate(it.fecha) < stringToDate(fechaFin) &&
-                        stringToDate(it.fecha) > stringToDate(fechaInicio)
-                    ) {
-                        facturasFinal.add(it)
-                    }
+                facturas.map {if (compararFechas(it.fecha, fechaFin)<0 &&
+                    compararFechas(it.fecha, fechaInicio)>0
+                ) {
+                    facturasFinal.add(it)
+                }
                 }
             }else{
                 facturasFiltradas.clear()
                 facturasFiltradas.addAll(facturasFinal)
                 facturasFinal.clear()
                 facturasFiltradas.map{
-                    if (stringToDate(it.fecha) < stringToDate(fechaFin) &&
-                        stringToDate(it.fecha) > stringToDate(fechaInicio)
+                    if (compararFechas(it.fecha, fechaFin)<0 &&
+                        compararFechas(it.fecha, fechaInicio)>0
                     ) {
                         facturasFinal.add(it)
                     }
@@ -80,11 +76,11 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
             }
         }
 
-        if (facturasFinal.isNotEmpty()){
-            return facturasFinal
-        }
-        else{
-            return facturas
+        return if (importeMax==null && fechaFin ==null
+            && fechaInicio==null && pagada ==null && pendientePago==null){
+            facturas
+        } else{
+            facturasFinal
         }
 
 
@@ -92,8 +88,16 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
 
     }
 
-    private fun stringToDate(fecha: String): Date {
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        return sdf.parse(fecha)!!
+
+    fun compararFechas(fecha1: String, fecha2: String): Int {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+        return try {
+            val date1 = dateFormat.parse(fecha1)!!
+            val date2 = dateFormat.parse(fecha2)
+            date1.compareTo(date2)
+        } catch (e: Exception) {
+            0
+        }
     }
 }
