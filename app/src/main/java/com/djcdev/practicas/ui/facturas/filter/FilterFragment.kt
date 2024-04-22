@@ -1,4 +1,4 @@
-package com.djcdev.practicas.ui.filter
+package com.djcdev.practicas.ui.facturas.filter
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -46,6 +46,7 @@ import kotlinx.coroutines.launch
 
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "filters")
+
 @AndroidEntryPoint
 class FilterFragment : Fragment() {
 
@@ -56,7 +57,7 @@ class FilterFragment : Fragment() {
     val binding get() = _binding!!
 
     private val args: FilterFragmentArgs by navArgs()
-    var condicion:Boolean =true
+    var condicion: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,15 +79,16 @@ class FilterFragment : Fragment() {
         binding.sliderPriceFactura.valueTo = args.type
         CoroutineScope(Dispatchers.IO).launch {
             getSettings().filter { condicion }.collect {
-                if (it!=null){
+                if (it != null) {
                     requireActivity().runOnUiThread {
-                        binding.cbPaid.isChecked=it.pagado
-                        binding.cbPendientePago.isChecked=it.pendientePago
-                        binding.sliderPriceFactura.value=String.format("%.2f", it.importeMax).toFloat()
-                        binding.btnFromFacturasFilter.text=it.fechaInicio
-                        binding.btnToFacturasFilter.text=it.fechaFin
+                        binding.cbPaid.isChecked = it.pagado
+                        binding.cbPendientePago.isChecked = it.pendientePago
+                        binding.sliderPriceFactura.value =
+                            String.format("%.2f", it.importeMax).toFloat()
+                        binding.btnFromFacturasFilter.text = it.fechaInicio
+                        binding.btnToFacturasFilter.text = it.fechaFin
                     }
-                    condicion=false
+                    condicion = false
                 }
             }
         }
@@ -103,9 +105,9 @@ class FilterFragment : Fragment() {
             binding.cbPaid.isChecked = false
             binding.cbPayPlan.isChecked = false
             binding.cbPendientePago.isChecked = false
-            binding.sliderPriceFactura.value=0.0f
-            binding.btnFromFacturasFilter.text= getString(R.string.date_filter)
-            binding.btnToFacturasFilter.text=getString(R.string.date_filter)
+            binding.sliderPriceFactura.value = 0.0f
+            binding.btnFromFacturasFilter.text = getString(R.string.date_filter)
+            binding.btnToFacturasFilter.text = getString(R.string.date_filter)
 
             //Safe al limpiar
             CoroutineScope(Dispatchers.IO).launch {
@@ -141,23 +143,23 @@ class FilterFragment : Fragment() {
 
             //Safe antes de aplicar cambios
             CoroutineScope(Dispatchers.IO).launch {
-                if (fechaInicio!=null){
+                if (fechaInicio != null) {
                     safeFechaInicio(fechaInicio)
-                }else{
+                } else {
                     safeFechaInicio(getString(R.string.date_filter))
                 }
-                if (fechaFin!=null){
+                if (fechaFin != null) {
                     safeFechaFin(fechaFin)
-                }else{
+                } else {
                     safeFechaFin(getString(R.string.date_filter))
                 }
-                if (importeMax!=null){
+                if (importeMax != null) {
                     safeImporte(importeMax.toFloat())
-                }else{
+                } else {
                     safeImporte(0.0f)
                 }
-                safeChecks("pendientePago", pendientePago?:false)
-                safeChecks("pagado", pagado?:false)
+                safeChecks("pendientePago", pendientePago ?: false)
+                safeChecks("pagado", pagado ?: false)
             }
             filterViewModel.filterFacturas(
                 pendientePago = pendientePago,
@@ -177,12 +179,13 @@ class FilterFragment : Fragment() {
                     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                     val formattedDate = dateFormat.format(selectedDate.time)
                     if (binding.btnToFacturasFilter.text == getString(R.string.date_filter)) {
-                        binding.btnToFacturasFilter.text = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
-                            Date()
-                        )
+                        binding.btnToFacturasFilter.text =
+                            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(
+                                Date()
+                            )
                     }
-                    CoroutineScope(Dispatchers.IO).launch { safeFechaInicio(formattedDate)}
-                        binding.btnFromFacturasFilter.text = formattedDate
+                    CoroutineScope(Dispatchers.IO).launch { safeFechaInicio(formattedDate) }
+                    binding.btnFromFacturasFilter.text = formattedDate
                 },
 
                 calendar.get(Calendar.YEAR),
@@ -201,7 +204,7 @@ class FilterFragment : Fragment() {
                     val formattedDate = dateFormat.format(selectedDate.time)
                     if (binding.btnFromFacturasFilter.text == getString(R.string.date_filter)) {
                         binding.btnFromFacturasFilter.text = formattedDate
-                                 }
+                    }
                     CoroutineScope(Dispatchers.IO).launch { safeFechaFin(formattedDate) }
                     binding.btnToFacturasFilter.text = formattedDate
                 },
@@ -212,8 +215,6 @@ class FilterFragment : Fragment() {
             )
             datePickerDialog.show()
         }
-
-
 
 
     }
@@ -228,11 +229,15 @@ class FilterFragment : Fragment() {
         requireContext().dataStore.edit { preferences ->
             preferences[stringPreferencesKey("fechaFin")] = date
         }
-    }private suspend fun safeImporte(importe: Float) {
+    }
+
+    private suspend fun safeImporte(importe: Float) {
         requireContext().dataStore.edit { preferences ->
             preferences[floatPreferencesKey("importeMax")] = importe
         }
-    }private suspend fun safeChecks(key: String, boolean: Boolean) {
+    }
+
+    private suspend fun safeChecks(key: String, boolean: Boolean) {
         requireContext().dataStore.edit { preferences ->
             preferences[booleanPreferencesKey(key)] = boolean
         }

@@ -20,9 +20,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun initUI() {
-        _binding?.ivPractica1?.setOnClickListener{
+        binding.ivPractica1.setOnClickListener{
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToFacturasFragment()
+            )
+        }
+        binding.ivPractica2.setOnClickListener{
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToTabHolderFragment()
             )
         }
     }

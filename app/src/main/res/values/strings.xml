@@ -29,5 +29,10 @@
     <string name="pagadas">Pagadas</string>
     <string name="apply">Aplicar</string>
     <string name="eliminar_filtros">Eliminar Filtros</string>
+    <string name="back">Atrás</string>
+    <string name="smart_solar">Smart Solar</string>
+    <string name="real_time_string_give">Aqui tienes los datos de tu instalación fotovoltaica en tiempo real</string>
+    <string name="auto_consumo">Autoconsumo:</string>
+    <string name="percentil_tool">92%</string>
 
 </resources>

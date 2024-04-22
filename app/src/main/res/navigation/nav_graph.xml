@@ -13,6 +13,9 @@
             android:id="@+id/action_homeFragment_to_facturasFragment"
             app:destination="@id/facturasFragment"
             app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_tabHolderFragment"
+            app:destination="@id/tabHolderFragment" />
     </fragment>
     <fragment
         android:id="@+id/facturasFragment"
@@ -26,10 +29,15 @@
     </fragment>
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.djcdev.practicas.ui.filter.FilterFragment"
+        android:name="com.djcdev.practicas.ui.facturas.filter.FilterFragment"
         android:label="FilterFragment" >
         <argument
             android:name="type"
             app:argType="float" />
     </fragment>
+    <fragment
+        android:id="@+id/tabHolderFragment"
+        android:name="com.djcdev.practicas.ui.smartsolar.TabHolderFragment"
+        android:label="fragment_tab_holder"
+        tools:layout="@layout/fragment_tab_holder" />
 </navigation>
