@@ -1,14 +1,12 @@
 package com.djcdev.practicas.data.network
 
-import android.content.Context
-import androidx.room.Room
+import co.infinum.retromock.Retromock
 import com.djcdev.practicas.data.RepositoryImpl
 import com.djcdev.practicas.data.database.FacturasDataBase
 import com.djcdev.practicas.domain.Repository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,8 +41,20 @@ object NetworkModule {
 
 
     @Provides
-    fun provideRepository (apiService: ApiService, db: FacturasDataBase):Repository{
-        return RepositoryImpl(apiService, db)
+    fun provideRepository (apiService: ApiService, db: FacturasDataBase, mockService: MockService):Repository{
+        return RepositoryImpl(apiService, db, mockService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetromock(retrofit: Retrofit):Retromock{
+        return Retromock.Builder()
+            .retrofit(retrofit)
+            .build()
+    }
+    @Provides
+    fun provideMockService(retromock: Retromock):MockService{
+        return retromock.create(MockService::class.java)
     }
 
 }

@@ -4,15 +4,29 @@ import android.util.Log
 import com.djcdev.practicas.data.database.FacturasDataBase
 import com.djcdev.practicas.data.database.entities.FacturaEntity
 import com.djcdev.practicas.data.network.ApiService
+import com.djcdev.practicas.data.network.MockService
 import com.djcdev.practicas.domain.Repository
+import com.djcdev.practicas.domain.model.DetailModel
 import com.djcdev.practicas.domain.model.FacturaModel
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(private val apiService: ApiService, private val facturasDataBase: FacturasDataBase) :Repository{
+class RepositoryImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val facturasDataBase: FacturasDataBase,
+    private val mockService: MockService
+) :Repository{
     override suspend fun getFacturasFromApi(): List<FacturaModel>? {
         kotlin.runCatching {
             apiService.getFacturas()
         }.onSuccess { return it.toDomain().facturas }
+            .onFailure { Log.i("ERROR-TAG", it.message.toString())}
+        return null
+    }
+
+    override suspend fun getDetails(): DetailModel? {
+        kotlin.runCatching {
+            mockService.getDetails()
+        }.onSuccess { return it.toDomain()}
             .onFailure { Log.i("ERROR-TAG", it.message.toString())}
         return null
     }
@@ -24,6 +38,8 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService, pri
             .onFailure { Log.i("ERROR-TAG", it.message.toString()) }
         return null
     }
+
+
 
     override suspend fun insertFacturas(facturas: List<FacturaEntity>) {
         kotlin.runCatching {

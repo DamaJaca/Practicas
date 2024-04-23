@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_normal_24"
     tools:context=".ui.smartsolar.pagesfromtabs.DetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Details Fragment" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/practice_grey"
+        android:text="@string/cau_autoconsumo" />
+    <TextView
+        android:id="@+id/etCau"
+        tools:text="ES0001233124"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:enabled="false"
+        android:textSize="18sp"
+        android:layout_marginBottom="@dimen/dimen_normal_24"/>
 
-</FrameLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/practice_grey"
+        android:text="@string/estado_solucitud" />
+    <TextView
+        android:id="@+id/etEstado"
+        tools:text="ES0001233124"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:enabled="false"
+        android:textSize="18sp"
+        android:layout_marginBottom="@dimen/dimen_normal_24"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/practice_grey"
+        android:text="@string/tipo_autoconsumo" />
+    <TextView
+        android:id="@+id/etTipo"
+        tools:text="ES0001233124"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:enabled="false"
+        android:textSize="18sp"
+        android:layout_marginBottom="@dimen/dimen_normal_24"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/practice_grey"
+        android:text="@string/compensacion_excedentes" />
+    <TextView
+        android:id="@+id/etCompensacion"
+        tools:text="ES0001233124"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:enabled="false"
+        android:textSize="18sp"
+        android:layout_marginBottom="@dimen/dimen_normal_24"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/practice_grey"
+        android:text="@string/potencia_instalacion" />
+    <TextView
+        android:id="@+id/etPotenia"
+        tools:text="ES0001233124"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:enabled="false"
+        android:textSize="18sp"
+        android:layout_marginBottom="@dimen/dimen_normal_24"/>
+
+</LinearLayout>

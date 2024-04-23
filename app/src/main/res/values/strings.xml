@@ -35,5 +35,10 @@
     <string name="auto_consumo">Autoconsumo:</string>
     <string name="percentil_tool">92%</string>
     <string name="on_progress_text_energy">Estamos trabajando en mejorar la App. Tus paneles solares siguen produciendo. En breve podrás seguir viendo tu producción solar. Sentimos las molestias</string>
+    <string name="estado_solucitud">Estado solicitud alta autoconsumidor</string>
+    <string name="tipo_autoconsumo">Tipo autoconsumo</string>
+    <string name="compensacion_excedentes">Compensación de excedentes</string>
+    <string name="potencia_instalacion">Potencia de instalación</string>
+    <string name="cau_autoconsumo">CAU (Código Autoconsumo)</string>
 
 </resources>
