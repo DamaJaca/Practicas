@@ -44,5 +44,17 @@
     <string name="stimated_time_smart_solar">El tiempo estimado de activación de tu autoconsumo es de 1 a 2 meses, éste variará en función de tu comunidad autónoma y distribuidora</string>
     <string name="ok">Aceptar</string>
     <string name="infoimage">infoImage</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="logo_iberdrola">logo_iberdrola</string>
+    <string name="remember_pass">Recordar Contraseña</string>
+    <string name="forgotten_info"><u>He olvidado mis datos</u></string>
+    <string name="login">Entrar</string>
+    <string name="singup">Registrarte</string>
+    <string name="back_to_login">Volver a Inicio de sesión</string>
+    <string name="new_user_register">Registro de nuevo Usuario</string>
+    <string name="recuperation_email">Enviar correo recuperacion</string>
+    <string name="you_can_also_see">Tambien puedes ver</string>
+    <string name="pass_confirm">Confirmar Contraseña</string>
 
 </resources>
