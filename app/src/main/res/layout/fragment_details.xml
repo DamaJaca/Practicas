@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ProgressBar
+        android:id="@+id/pbSolar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="0dp"
     android:orientation="vertical"
+    android:visibility="invisible"
+    android:id="@+id/linearSolarFragment"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
     android:padding="@dimen/dimen_normal_24"
     tools:context=".ui.smartsolar.pagesfromtabs.DetailsFragment">
 
@@ -22,8 +43,11 @@
         android:layout_height="wrap_content"
         android:focusable="false"
         android:enabled="false"
-        android:textSize="18sp"
-        android:layout_marginBottom="@dimen/dimen_normal_24"/>
+        android:textSize="18sp"/>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_normal_24"/>
 
 
 
@@ -32,15 +56,35 @@
         android:layout_height="wrap_content"
         android:textColor="@color/practice_grey"
         android:text="@string/estado_solucitud" />
-    <TextView
-        android:id="@+id/etEstado"
-        tools:text="ES0001233124"
-        android:textColor="@color/black"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        android:enabled="false"
-        android:textSize="18sp"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+        <TextView
+            android:id="@+id/etEstado"
+            tools:text="ES0001233124"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:enabled="false"
+            android:textSize="18sp"/>
+        <ImageView
+            android:id="@+id/ivInfoButtom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tooltip_azul_estados"
+            android:padding="@dimen/small_8dp"
+            android:contentDescription="@string/infoimage" />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_normal_24"/>
 
 
@@ -57,7 +101,10 @@
         android:layout_height="wrap_content"
         android:focusable="false"
         android:enabled="false"
-        android:textSize="18sp"
+        android:textSize="18sp"/>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_normal_24"/>
 
 
@@ -75,7 +122,10 @@
         android:layout_height="wrap_content"
         android:focusable="false"
         android:enabled="false"
-        android:textSize="18sp"
+        android:textSize="18sp"/>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_normal_24"/>
 
 
@@ -93,7 +143,11 @@
         android:layout_height="wrap_content"
         android:focusable="false"
         android:enabled="false"
-        android:textSize="18sp"
+        android:textSize="18sp"/>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_normal_24"/>
 
 </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

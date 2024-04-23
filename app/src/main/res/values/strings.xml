@@ -40,5 +40,9 @@
     <string name="compensacion_excedentes">Compensación de excedentes</string>
     <string name="potencia_instalacion">Potencia de instalación</string>
     <string name="cau_autoconsumo">CAU (Código Autoconsumo)</string>
+    <string name="estado_solucitud2">Estado solicitud autoconsumo</string>
+    <string name="stimated_time_smart_solar">El tiempo estimado de activación de tu autoconsumo es de 1 a 2 meses, éste variará en función de tu comunidad autónoma y distribuidora</string>
+    <string name="ok">Aceptar</string>
+    <string name="infoimage">infoImage</string>
 
 </resources>

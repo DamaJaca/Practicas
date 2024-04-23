@@ -17,14 +17,12 @@ class TabHolderFragment : Fragment() {
     private var _binding : FragmentTabHolderBinding ?= null
     private val binding get() = _binding!!
 
-    private lateinit var tabLayout: TabLayout
-    private lateinit var viewPager: ViewPager
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding= FragmentTabHolderBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -32,6 +30,13 @@ class TabHolderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewPager()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.backButtomSolar.setOnClickListener{
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun setupViewPager() {

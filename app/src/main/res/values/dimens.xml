@@ -6,4 +6,5 @@
     <dimen name="tool_bar_dimen">56dp</dimen>
     <dimen name="normal_16dp">16dp</dimen>
     <dimen name="big_big_85dp">85dp</dimen>
+    <dimen name="small_8dp">8dp</dimen>
 </resources>
