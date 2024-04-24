@@ -2,6 +2,7 @@ package com.djcdev.practicas.ui.login
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,8 +39,30 @@ class SingupFragment : Fragment() {
             binding.pbSignUp.isVisible=true
             val user = binding.etUser.text.toString()
             val pass = binding.etPass.text.toString()
-            viewModel.singUp(user, pass){bolean, fail -> signUpController(bolean, fail)}
-
+            val confPass = binding.etPass.text.toString()
+            if (pass==confPass) {
+                viewModel.singUp(user, pass){bolean, fail -> signUpController(bolean, fail)}
+            }else{
+                showErrorDialog(FailedSignUp.NotSamePass)
+            }
+        }
+        binding.ivShowPass.setOnClickListener {
+            // Alternar la visibilidad de la contraseña
+            if (binding.etPass.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                binding.etPass.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            } else {
+                binding.etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            }
+            binding.etPass.setSelection(binding.etPass.text.length)
+        }
+        binding.ivShowConfirmPass.setOnClickListener {
+            // Alternar la visibilidad de la contraseña
+            if (binding.etConfirmPass.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                binding.etConfirmPass.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            } else {
+                binding.etConfirmPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            }
+            binding.etConfirmPass.setSelection(binding.etConfirmPass.text.length)
         }
     }
 
@@ -78,6 +101,7 @@ class SingupFragment : Fragment() {
                 FailedSignUp.InvalidCredential -> "El email introducido no es válido. Comprueba que es un email válido"
                 FailedSignUp.UserAlreadyExist -> "El usuario que intenta introducir ya está registrado"
                 FailedSignUp.WeakPas -> "La contraseña es demasiado debil"
+                FailedSignUp.NotSamePass -> "Las contraseñas no coinciden"
             }
         }
         val builder = AlertDialog.Builder(requireContext())

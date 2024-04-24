@@ -2,6 +2,7 @@ package com.djcdev.practicas.ui.login
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,6 +55,14 @@ class LoginFragment : Fragment() {
             findNavController().navigate(
                 LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
             )
+        }
+        binding.ivShowPass.setOnClickListener {
+            if (binding.etPass.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                binding.etPass.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            } else {
+                binding.etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            }
+            binding.etPass.setSelection(binding.etPass.text.length)
         }
 
     }

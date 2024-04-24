@@ -31,19 +31,22 @@
             android:layout_height="wrap_content"
             android:hint="@string/user"
             android:id="@+id/etUser"
-            android:layout_marginBottom="@dimen/normal_16dp"/>
+            android:layout_marginBottom="@dimen/normal_16dp"
+            android:autofillHints=""
+            android:inputType="text" />
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/normal_16dp">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:id="@+id/etPass"
-                android:autofillHints=""
-                app:passwordToggleEnabled="true"
-                android:inputType="textPassword" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:id="@+id/etPass"
+                    android:autofillHints=""
+                    app:passwordToggleEnabled="true"
+                    android:inputType="textPassword" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
