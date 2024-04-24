@@ -19,7 +19,7 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
 
         var facturasFiltradas: MutableList<FacturaModel> = mutableListOf()
 
-        var facturasFinal: MutableList<FacturaModel> = mutableListOf()
+        val facturasFinal: MutableList<FacturaModel> = mutableListOf()
 
         //Comprobamos las que están pendientes de pago
         if (pendientePago != null) {
