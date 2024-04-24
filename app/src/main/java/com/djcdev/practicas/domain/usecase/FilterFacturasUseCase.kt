@@ -1,10 +1,8 @@
 package com.djcdev.practicas.domain.usecase
 
-import android.util.Log
 import com.djcdev.practicas.domain.Repository
 import com.djcdev.practicas.domain.model.FacturaModel
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
@@ -16,7 +14,7 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
         fechaInicio: String?,
         fechaFin: String?
     ): List<FacturaModel> {
-        var facturas: List<FacturaModel> = repository.getFacturasFromDatabase()!!
+        val facturas: List<FacturaModel> = repository.getFacturasFromDatabase()!!
 
 
         var facturasFiltradas: MutableList<FacturaModel> = mutableListOf()
@@ -38,13 +36,14 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
         }
         //Comprobamos el importe máximo, si no es nulo comprobamos si se ha filtrado primero por otro parámetro de checkbox para hacerle el filtro a eso
         if (importeMax != null) {
-            if (pagada == null || pendientePago == null) {
+            if (pagada == null && pendientePago == null) {
+                facturasFiltradas.clear()
                 facturasFiltradas = facturas.filter { it.importe <= importeMax }.toMutableList()
                 facturasFinal.addAll(facturasFiltradas)
             }//En caso de que se haya hecho un filtro previo se realiza un filtro a la lista previa
             else {
-                facturasFiltradas =
-                    facturasFinal.filter { it.importe <= importeMax }.toMutableList()
+                facturasFiltradas.clear()
+                facturasFiltradas = facturasFinal.filter { it.importe <= importeMax }.toMutableList()
                 facturasFinal.clear()
                 facturasFinal.addAll(facturasFiltradas)
             }
