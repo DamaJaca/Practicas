@@ -36,7 +36,7 @@
                 android:hint="@string/password"
                 android:id="@+id/etPass"
                 android:autofillHints=""
-                android:inputType="text" />
+                android:inputType="textPassword" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

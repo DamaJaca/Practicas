@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id ("com.google.dagger.hilt.android")
     id ("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -55,6 +56,7 @@ dependencies {
 
     //Dagger hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.firebase.auth)
     kapt("com.google.dagger:hilt-compiler:2.51.1")
 
     //Navigation View
