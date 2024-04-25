@@ -48,7 +48,7 @@ android {
 dependencies {
 
     //Retromock
-    implementation ("co.infinum:retromock:1.1.0")
+    implementation("co.infinum:retromock:1.1.0")
 
     //Retrofit
     implementation(libs.retrofit)

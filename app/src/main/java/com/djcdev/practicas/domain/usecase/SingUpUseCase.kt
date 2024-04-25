@@ -20,8 +20,6 @@ class SingUpUseCase @Inject constructor() {
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         onComplete(true, null)
-                    } else {
-
                     }
                 }
                 .addOnFailureListener { exception ->

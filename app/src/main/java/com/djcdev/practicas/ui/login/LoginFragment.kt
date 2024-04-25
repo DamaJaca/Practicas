@@ -1,6 +1,7 @@
 package com.djcdev.practicas.ui.login
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -10,6 +11,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentLoginBinding
@@ -18,9 +21,11 @@ import com.djcdev.practicas.ui.home.HomeFragmentDirections
 
 class LoginFragment : Fragment() {
 
-    private var _binding : FragmentLoginBinding ?= null
+    private var _binding: FragmentLoginBinding? = null
 
     val binding get() = _binding!!
+
+    private val viewModel by activityViewModels<LoginViewModel>()
 
 
     override fun onCreateView(
@@ -38,13 +43,15 @@ class LoginFragment : Fragment() {
 
     private fun initListeners() {
         binding.btnLogin.setOnClickListener {
-            //Logica antes de avanzar
-            findNavController().navigate(
-                LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-            )
-        }
-        binding.ivShowPass.setOnClickListener {
-            //Hacer visible la contraseña
+            binding.pbLogin.isVisible = true
+            val user = binding.etUser.text.toString()
+            val pass = binding.etPass.text.toString()
+            binding.btnLogin.text = ""
+            if (user != "" && pass != "") {
+                viewModel.login(user, pass) { boolean, fail -> loginController(boolean, fail) }
+            } else {
+                showErrorDialog(FailedLogin.MissingSomething)
+            }
         }
         binding.btnRegister.setOnClickListener {
             findNavController().navigate(
@@ -58,12 +65,57 @@ class LoginFragment : Fragment() {
         }
         binding.ivShowPass.setOnClickListener {
             if (binding.etPass.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-                binding.etPass.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.etPass.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             } else {
                 binding.etPass.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             }
             binding.etPass.setSelection(binding.etPass.text.length)
         }
+
+    }
+
+    private fun loginController(boolean: Boolean, fail: FailedLogin?) {
+        if (fail == null) {
+            if (boolean) {
+                Toast.makeText(context, "Se ha iniciado sesion", Toast.LENGTH_SHORT).show()
+                binding.pbLogin.isVisible = false
+                binding.btnLogin.text = getString(R.string.login)
+
+                findNavController().navigate(
+                    LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                )
+            }
+        } else {
+            binding.pbLogin.isVisible = false
+            binding.btnLogin.text = getString(R.string.login)
+            showErrorDialog(fail)
+        }
+
+    }
+
+    private fun showErrorDialog(fail: FailedLogin?) {
+        var errorMessage = ""
+        errorMessage = if (fail == null) {
+            "Ha ocurrido un error inesperado al intentar realizar esa acción"
+        } else {
+            when (fail) {
+                FailedLogin.InvalidUser -> "El usuario que está intentando ingresar no existe"
+                FailedLogin.InvalidPass -> "Contraseña no válida"
+                FailedLogin.LoggedUser -> "Error al logear usuario. Compruebe que no inició sesion en otro dispositivo"
+                FailedLogin.MissingSomething -> "Usuario o contraseña faltante"
+                FailedLogin.NetworkFail -> "No se ha podido conectar con el servidor"
+                FailedLogin.TooManyRequests -> "Ha agotado todos los intentos de inicio de sesion. Intentelo más adelante"
+            }
+        }
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Error")
+        builder.setMessage(errorMessage)
+        builder.setPositiveButton("Cerrar") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
 
     }
 }

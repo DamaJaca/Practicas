@@ -67,18 +67,20 @@ class SingupFragment : Fragment() {
     }
 
     private fun signUpController(boolean: Boolean, fail:FailedSignUp?) {
-        if (fail!=null){
+        if (fail==null){
             if (boolean){
                 Toast.makeText(context, "Registro realizado con exito", Toast.LENGTH_SHORT).show()
                 binding.pbSignUp.isVisible=false
                 binding.btnRegister.text= getString(R.string.singup)
                 requireActivity().onBackPressedDispatcher.onBackPressed()
-            }else{
-                binding.pbSignUp.isVisible=false
-                binding.btnRegister.text= getString(R.string.singup)
             }
         }
+        else{
+            binding.pbSignUp.isVisible=false
+            binding.btnRegister.text= getString(R.string.singup)
+        }
         showErrorDialog(fail)
+
 
     }
 
