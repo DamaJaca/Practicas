@@ -35,6 +35,7 @@ object NetworkModule {
     }
 
     @Provides
+    @Singleton
     fun provideApiService(retrofit: Retrofit):ApiService{
         return retrofit.create(ApiService::class.java)
     }
@@ -53,6 +54,7 @@ object NetworkModule {
             .build()
     }
     @Provides
+    @Singleton
     fun provideMockService(retromock: Retromock):MockService{
         return retromock.create(MockService::class.java)
     }

@@ -124,14 +124,20 @@ class LoginFragment : Fragment() {
                 binding.pbLogin.isVisible = false
                 binding.btnLogin.text = getString(R.string.login)
 
+
+
+
+
                 if (binding.cbRememberPass.isChecked){
                     CoroutineScope(Dispatchers.IO).launch {
                         saveUser (binding.etUser.text.toString(), binding.etPass.text.toString())
                     }
                 }else{
+                    if (condition){
                     CoroutineScope(Dispatchers.IO).launch {
                         saveUser ("", "")
                     }
+                }
                 }
 
 
