@@ -56,5 +56,11 @@
     <string name="recuperation_email">Enviar correo recuperacion</string>
     <string name="you_can_also_see">Tambien puedes ver</string>
     <string name="pass_confirm">Confirmar Contraseña</string>
+    <string name="main_menu">Menú principal</string>
+    <string name="navigation">Navegación</string>
+    <string name="abrir_navegador_externo">Abrir Navegador Externo</string>
+    <string name="abrir_webview">Abrir WebView</string>
+    <string name="desde_una_aplicaci_n_android_se_pude_acceder_a_p_ginas_webs_mediante_el_nave_gador_externo_o_mediante_webviews">Desde una aplicación Android, se pude acceder a páginas webs, mediante el navegador externo o mediante Webviews</string>
+    <string name="practicas_practica3">Práctica 3</string>
 
 </resources>

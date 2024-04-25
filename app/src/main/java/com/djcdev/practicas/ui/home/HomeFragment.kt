@@ -30,6 +30,11 @@ class HomeFragment : Fragment() {
                 HomeFragmentDirections.actionHomeFragmentToTabHolderFragment()
             )
         }
+        binding.ivPractica3.setOnClickListener{
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToNavigationFragment()
+            )
+        }
     }
 
     override fun onCreateView(

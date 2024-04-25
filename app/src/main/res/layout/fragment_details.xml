@@ -20,6 +20,7 @@
     android:layout_height="0dp"
     android:orientation="vertical"
     android:visibility="invisible"
+    tools:visibility="visible"
     android:id="@+id/linearSolarFragment"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"

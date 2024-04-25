@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_tabHolderFragment"
             app:destination="@id/tabHolderFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_navigationFragment"
+            app:destination="@id/navigationFragment" />
     </fragment>
     <fragment
         android:id="@+id/facturasFragment"
@@ -65,4 +68,9 @@
         android:name="com.djcdev.practicas.ui.login.SingupFragment"
         android:label="fragment_singup"
         tools:layout="@layout/fragment_singup" />
+    <fragment
+        android:id="@+id/navigationFragment"
+        android:name="com.djcdev.practicas.ui.navigation.NavigationFragment"
+        android:label="fragment_navigation"
+        tools:layout="@layout/fragment_navigation" />
 </navigation>

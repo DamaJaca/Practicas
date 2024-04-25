@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.navigation.NavigationFragment">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_dimen"
+        android:id="@+id/toolbarFacturas"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtomFacturas"
+            android:rotation="180"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_next"
+            android:padding="8dp"
+            app:tint="@color/green" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_menu"
+            android:textColor="@color/green"/>
+
+
+    </Toolbar>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarFacturas"
+        android:id="@+id/tvNavigation"
+        android:text="@string/navigation"
+        style="@style/Title_Basic"
+        android:padding="16dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvDescriptionNavigation"
+        android:text="@string/desde_una_aplicaci_n_android_se_pude_acceder_a_p_ginas_webs_mediante_el_nave_gador_externo_o_mediante_webviews"
+        android:padding="@dimen/dimen_big_36"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvDescriptionNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/dimen_big_36"
+        android:id="@+id/buttonContainer">
+        <Button
+            android:id="@+id/btnExternalNavigation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/normal_16dp"
+            android:text="@string/abrir_navegador_externo"/>
+        <Button
+            android:id="@+id/btnInternalNavigation"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/abrir_webview"/>
+
+    </LinearLayout>
+    <WebView
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonContainer"
+        android:layout_margin="@dimen/normal_16dp"
+        android:id="@+id/webView"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
