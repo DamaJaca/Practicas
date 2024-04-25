@@ -1,6 +1,7 @@
 package com.djcdev.practicas.ui.login
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import androidx.fragment.app.Fragment
@@ -9,12 +10,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentLoginBinding
+import com.djcdev.practicas.ui.facturas.filter.dataStore
 import com.djcdev.practicas.ui.login.exceptions.FailedLogin
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user")
 
 class LoginFragment : Fragment() {
 
@@ -23,6 +38,7 @@ class LoginFragment : Fragment() {
     val binding get() = _binding!!
 
     private val viewModel by activityViewModels<LoginViewModel>()
+    var condition :Boolean =true
 
 
     override fun onCreateView(
@@ -35,7 +51,36 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUI()
         initListeners()
+    }
+
+    private fun initUI() {
+
+
+        binding.principalLayout.isVisible=true
+        binding.pbRememberMyUser.isVisible=false
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            getUser().filter { condition }.collect {
+                if (it.user != "" && it.pass!="" && it.user!=null) {
+                    requireActivity().runOnUiThread {
+                        binding.principalLayout.isVisible=false
+                        binding.pbRememberMyUser.isVisible=true
+                        binding.etUser.setText(it.user)
+                    }
+                    viewModel.login(it.user, it.pass!!) { boolean, fail ->
+                        loginController(boolean, fail)
+                    }
+
+                }
+                condition=false
+            }
+            if (!condition){
+                saveUser("","")
+            }
+        }
     }
 
     private fun initListeners() {
@@ -79,6 +124,18 @@ class LoginFragment : Fragment() {
                 binding.pbLogin.isVisible = false
                 binding.btnLogin.text = getString(R.string.login)
 
+                if (binding.cbRememberPass.isChecked){
+                    CoroutineScope(Dispatchers.IO).launch {
+                        saveUser (binding.etUser.text.toString(), binding.etPass.text.toString())
+                    }
+                }else{
+                    CoroutineScope(Dispatchers.IO).launch {
+                        saveUser ("", "")
+                    }
+                }
+
+
+
                 findNavController().navigate(
                     LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                 )
@@ -89,6 +146,14 @@ class LoginFragment : Fragment() {
             showErrorDialog(fail)
         }
 
+    }
+
+    private suspend fun saveUser(user: String, pass: String) {
+        requireContext().dataStore.edit { preferences ->
+            preferences[stringPreferencesKey("user")] = user
+            preferences[stringPreferencesKey("pass")] = pass
+
+        }
     }
 
     private fun showErrorDialog(fail: FailedLogin?) {
@@ -115,4 +180,15 @@ class LoginFragment : Fragment() {
         dialog.show()
 
     }
+
+    private fun getUser(): Flow<UserModel> {
+        return requireContext().dataStore.data.map {
+            UserModel(
+                it[stringPreferencesKey("user")],
+                it[stringPreferencesKey("pass")]
+            )
+        }
+    }
+
+
 }
