@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentSingupBinding
+import com.djcdev.practicas.ui.login.exceptions.FailedSignUp
 
 
 class SingupFragment : Fragment() {
@@ -35,12 +36,13 @@ class SingupFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
         binding.btnRegister.setOnClickListener {
-            binding.btnRegister.text= ""
-            binding.pbSignUp.isVisible=true
+
             val user = binding.etUser.text.toString()
             val pass = binding.etPass.text.toString()
             val confPass = binding.etPass.text.toString()
-            if (pass==confPass) {
+            if (pass==confPass && pass !="") {
+                binding.btnRegister.text= ""
+                binding.pbSignUp.isVisible=true
                 viewModel.singUp(user, pass){bolean, fail -> signUpController(bolean, fail)}
             }else{
                 showErrorDialog(FailedSignUp.NotSamePass)
@@ -66,7 +68,7 @@ class SingupFragment : Fragment() {
         }
     }
 
-    private fun signUpController(boolean: Boolean, fail:FailedSignUp?) {
+    private fun signUpController(boolean: Boolean, fail: FailedSignUp?) {
         if (fail==null){
             if (boolean){
                 Toast.makeText(context, "Registro realizado con exito", Toast.LENGTH_SHORT).show()
@@ -78,8 +80,9 @@ class SingupFragment : Fragment() {
         else{
             binding.pbSignUp.isVisible=false
             binding.btnRegister.text= getString(R.string.singup)
+            showErrorDialog(fail)
         }
-        showErrorDialog(fail)
+
 
 
     }
@@ -103,7 +106,7 @@ class SingupFragment : Fragment() {
                 FailedSignUp.InvalidCredential -> "El email introducido no es válido. Comprueba que es un email válido"
                 FailedSignUp.UserAlreadyExist -> "El usuario que intenta introducir ya está registrado"
                 FailedSignUp.WeakPas -> "La contraseña es demasiado debil"
-                FailedSignUp.NotSamePass -> "Las contraseñas no coinciden"
+                FailedSignUp.NotSamePass -> "Las contraseñas no coinciden o los campos estan vacios"
             }
         }
         val builder = AlertDialog.Builder(requireContext())

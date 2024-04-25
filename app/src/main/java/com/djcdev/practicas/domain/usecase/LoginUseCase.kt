@@ -1,8 +1,7 @@
 package com.djcdev.practicas.domain.usecase
 
 import android.util.Log
-import com.djcdev.practicas.ui.login.FailedLogin
-import com.djcdev.practicas.ui.login.FailedSignUp
+import com.djcdev.practicas.ui.login.exceptions.FailedLogin
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -10,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.auth
 import javax.inject.Inject
 
@@ -29,8 +27,7 @@ class LoginUseCase @Inject constructor() {
                 }
                 .addOnFailureListener { exception ->
                     val errorMessage = exception.message
-                    Log.e("FirebaseAuth", "Error al crear el usuario: $errorMessage")
-                    Log.d("FirebaseAuth", "Error al logear y no se porque")
+                    Log.e("FirebaseAuth", "Error al logear el usuario: $errorMessage")
 
                     when (exception) {
 

@@ -1,13 +1,10 @@
 package com.djcdev.practicas.ui.login
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -16,7 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentLoginBinding
-import com.djcdev.practicas.ui.home.HomeFragmentDirections
+import com.djcdev.practicas.ui.login.exceptions.FailedLogin
 
 
 class LoginFragment : Fragment() {
@@ -43,11 +40,11 @@ class LoginFragment : Fragment() {
 
     private fun initListeners() {
         binding.btnLogin.setOnClickListener {
-            binding.pbLogin.isVisible = true
             val user = binding.etUser.text.toString()
             val pass = binding.etPass.text.toString()
-            binding.btnLogin.text = ""
             if (user != "" && pass != "") {
+                binding.pbLogin.isVisible = true
+                binding.btnLogin.text = ""
                 viewModel.login(user, pass) { boolean, fail -> loginController(boolean, fail) }
             } else {
                 showErrorDialog(FailedLogin.MissingSomething)
@@ -101,7 +98,7 @@ class LoginFragment : Fragment() {
         } else {
             when (fail) {
                 FailedLogin.InvalidUser -> "El usuario que está intentando ingresar no existe"
-                FailedLogin.InvalidPass -> "Contraseña no válida"
+                FailedLogin.InvalidPass -> "Usuario o Contraseña no válida"
                 FailedLogin.LoggedUser -> "Error al logear usuario. Compruebe que no inició sesion en otro dispositivo"
                 FailedLogin.MissingSomething -> "Usuario o contraseña faltante"
                 FailedLogin.NetworkFail -> "No se ha podido conectar con el servidor"
