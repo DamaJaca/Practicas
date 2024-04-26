@@ -10,7 +10,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val singUpUseCase: SingUpUseCase,private val loginUseCase: LoginUseCase, private  val rememberUserUseCase: RememberUserUseCase) :ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val singUpUseCase: SingUpUseCase,
+    private val loginUseCase: LoginUseCase,
+    private val rememberUserUseCase: RememberUserUseCase
+) : ViewModel() {
     fun singUp(user: String, pass: String, onComplete: (Boolean, FailedSignUp?) -> Unit) {
         singUpUseCase.invoke(user, pass) { bolean, fail -> onComplete(bolean, fail) }
     }
@@ -20,7 +24,7 @@ class LoginViewModel @Inject constructor(private val singUpUseCase: SingUpUseCas
     }
 
     fun remember(user: String, remember: (Boolean, FailedLogin?) -> Unit) {
-        rememberUserUseCase(user){boolean, failed -> remember(boolean,failed)}
+        rememberUserUseCase(user) { boolean, failed -> remember(boolean, failed) }
     }
 }
 

@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 class NavigationFragment : Fragment() {
     companion object{
-        const val URL_DESTINO = "https://www.google.com/"
+        const val URL_DESTINO = "https://www.iberdrola.es"
      }
 
     private var _binding : FragmentNavigationBinding ?= null
