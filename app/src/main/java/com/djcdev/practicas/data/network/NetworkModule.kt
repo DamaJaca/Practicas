@@ -1,9 +1,12 @@
 package com.djcdev.practicas.data.network
 
+import android.app.Activity
+import android.app.Application
 import co.infinum.retromock.Retromock
 import com.djcdev.practicas.data.RepositoryImpl
 import com.djcdev.practicas.data.database.FacturasDataBase
 import com.djcdev.practicas.domain.Repository
+import com.djcdev.practicas.ui.home.MainActivity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,11 +51,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetromock(retrofit: Retrofit):Retromock{
+    fun provideRetromock(retrofit: Retrofit, app :Application):Retromock{
         return Retromock.Builder()
             .retrofit(retrofit)
+            .defaultBodyFactory(app.baseContext.assets::open)
             .build()
     }
+
+
+
     @Provides
     @Singleton
     fun provideMockService(retromock: Retromock):MockService{

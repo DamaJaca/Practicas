@@ -39,6 +39,14 @@ class RepositoryImpl @Inject constructor(
         return null
     }
 
+    override suspend fun getFacturasFromMock(): List<FacturaModel>? {
+        kotlin.runCatching {
+            mockService.getFacturas()
+        }.onSuccess { return it.toDomain().facturas }
+            .onFailure { Log.i("ERROR-TAG", it.message.toString()) }
+        return null
+    }
+
 
 
     override suspend fun insertFacturas(facturas: List<FacturaEntity>) {

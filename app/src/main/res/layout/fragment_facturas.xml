@@ -75,5 +75,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/progressBar"/>
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchFacturas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/rvFacturas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarFacturas"
+        android:layout_margin="@dimen/normal_16dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -44,7 +45,7 @@ class FacturasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (!isDataLoaded) { // Solo carga los datos la primera vez que se crea la vista
-            facturasViewModel.getFacturas()
+            facturasViewModel.getFacturas(false)
             isDataLoaded = true
         }
         initUi()
@@ -66,6 +67,25 @@ class FacturasFragment : Fragment() {
     }
 
     private fun initListeners() {
+
+        binding.switchFacturas.setOnCheckedChangeListener { buttonView, isChecked ->
+            binding.progressBar.isVisible = true
+            if (facturasViewModel.switchState){
+                facturasViewModel.switchState=false
+            }else{
+                isMaxLoaded = false
+                var message =if (isChecked){
+                    "Mock"
+                }else{"Retrofit" }
+                Toast.makeText(requireContext(), "Ahora esta cargando la lista desde ${message}", Toast.LENGTH_SHORT).show()
+                facturasViewModel.mock= isChecked
+                facturasViewModel.getFacturas(isChecked)
+            }
+
+
+        }
+
+
         initNavigation(maxImport)
         binding.backButtomFacturas.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()

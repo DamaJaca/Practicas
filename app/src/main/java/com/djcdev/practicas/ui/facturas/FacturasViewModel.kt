@@ -26,11 +26,15 @@ class FacturasViewModel @Inject constructor(
     private var _state = MutableStateFlow<FacturasState>(FacturasState.Loading)
     val state: StateFlow<FacturasState> get() = _state
 
-    fun getFacturas() {
+    var switchState : Boolean = false
+
+    var mock : Boolean = false
+
+    fun getFacturas(boolean: Boolean) {
         viewModelScope.launch {
 
             val result: List<FacturaModel>? = withContext(Dispatchers.IO) {
-                getFacturasUseCase()
+                getFacturasUseCase(boolean)
             }
             if (result != null) {
                 _state.value = FacturasState.Success(result)
@@ -48,17 +52,19 @@ class FacturasViewModel @Inject constructor(
         fechaInicio: String?,
         fechaFin: String?
     ) {
+        switchState=true
         viewModelScope.launch {
 
              withContext(Dispatchers.Default) {
 
-                val filteredResults = filterFacturasUseCase(
-                        pendientePago,
-                        pagado,
-                        importe,
-                        fechaInicio,
-                        fechaFin
-                    )
+                val filteredResults = filterFacturasUseCase.invoke(
+                    pendientePago,
+                    pagado,
+                    importe,
+                    fechaInicio,
+                    fechaFin,
+                    mock
+                )
 
                 _state.value = FacturasState.Success(filteredResults)
 

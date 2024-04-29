@@ -17,4 +17,9 @@ interface MockService {
             "    }")
     @GET("/")
     suspend fun getDetails(): DetailsResponse
+
+    @Mock
+    @MockResponse(body = "response.json")
+    @GET("/")
+    suspend fun getFacturas(): FacturasResponse
 }

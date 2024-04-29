@@ -3,6 +3,7 @@ package com.djcdev.practicas.ui.navigation
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,9 @@ class NavigationFragment : Fragment() {
     }
 
     private fun initListeners() {
+        binding.backButtomFacturas.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
         binding.btnExternalNavigation.setOnClickListener {
             binding.webView.isVisible=false
             var intent = Intent(Intent.ACTION_VIEW, Uri.parse(URL_DESTINO))

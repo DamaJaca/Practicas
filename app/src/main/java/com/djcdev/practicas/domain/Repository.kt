@@ -7,6 +7,7 @@ import com.djcdev.practicas.domain.model.FacturasModel
 
 interface Repository {
     suspend fun getFacturasFromApi(): List<FacturaModel>?
+    suspend fun getFacturasFromMock(): List<FacturaModel>?
 
     suspend fun getDetails(): DetailModel?
 
