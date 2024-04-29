@@ -8,12 +8,12 @@ import javax.inject.Inject
 
 class FilterFacturasUseCase @Inject constructor (private val repository: Repository) {
     suspend operator fun invoke(
-        pendientePago: kotlin.Boolean?,
-        pagada: kotlin.Boolean?,
-        importeMax: kotlin.Double?,
-        fechaInicio: kotlin.String?,
-        fechaFin: kotlin.String?,
-        mock: kotlin.Boolean
+        pendientePago: Boolean?,
+        pagada: Boolean?,
+        importeMax: Double?,
+        fechaInicio: String?,
+        fechaFin: String?,
+        mock: Boolean
     ): List<FacturaModel> {
         val facturas: List<FacturaModel> = if (mock){
             repository.getFacturasFromMock()!!

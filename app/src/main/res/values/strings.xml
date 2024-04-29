@@ -62,5 +62,7 @@
     <string name="abrir_webview">Abrir WebView</string>
     <string name="desde_una_aplicaci_n_android_se_pude_acceder_a_p_ginas_webs_mediante_el_nave_gador_externo_o_mediante_webviews">Desde una aplicación Android, se pude acceder a páginas webs, mediante el navegador externo o mediante Webviews</string>
     <string name="practicas_practica3">Práctica 3</string>
+    <string name="not_loaded_list">La lista no ha sido cargada</string>
+    <string name="not_bills_response">No se ha devuelto ningúna factura</string>
 
 </resources>

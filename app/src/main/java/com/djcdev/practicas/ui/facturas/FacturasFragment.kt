@@ -24,19 +24,26 @@ import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentFacturasBinding
 import com.djcdev.practicas.domain.model.FacturaModel
 import com.djcdev.practicas.ui.facturas.adapter.FacturasAdapter
+import com.djcdev.practicas.ui.home.MainActivity
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.lang.IllegalStateException
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @AndroidEntryPoint
 class FacturasFragment : Fragment() {
+
+    @Inject
+    lateinit var firebaseConfig: FirebaseRemoteConfig
 
     private val facturasViewModel by activityViewModels<FacturasViewModel>()
     private var _binding: FragmentFacturasBinding? = null
     val binding get() = _binding!!
 
     private lateinit var facturasAdapter: FacturasAdapter
+    private var recyclerViewVisibility: Boolean = false
 
     private var isDataLoaded = false
     private var isMaxLoaded = false
@@ -61,6 +68,8 @@ class FacturasFragment : Fragment() {
     }
 
     private fun initUi() {
+        recyclerViewVisibility = firebaseConfig.getBoolean("show_list")
+        binding.rvFacturas.isVisible=recyclerViewVisibility
         initListeners()
         initUIState()
 
@@ -120,17 +129,36 @@ class FacturasFragment : Fragment() {
 
 
     private fun initRecyclerView(facturas: List<FacturaModel>) {
-        binding.progressBar.isVisible = false
-        facturasAdapter = FacturasAdapter { onItemSelected() }
-        binding.rvFacturas.layoutManager = LinearLayoutManager(context)
-        binding.rvFacturas.adapter = facturasAdapter
-        // Actualiza los datos del adaptador
-        facturasAdapter.updateList(facturas)
-        if (!isMaxLoaded) {
-            maxImport = facturasAdapter.getMaxImport()
-            initNavigation(maxImport)
-            isMaxLoaded = true
+        if (recyclerViewVisibility){
+            binding.progressBar.isVisible = false
+            facturasAdapter = FacturasAdapter { onItemSelected() }
+            binding.rvFacturas.isVisible=true
+            binding.rvFacturas.layoutManager = LinearLayoutManager(context)
+            binding.rvFacturas.adapter = facturasAdapter
+            // Actualiza los datos del adaptador
+            facturasAdapter.updateList(facturas)
+            if (!isMaxLoaded) {
+                maxImport = facturasAdapter.getMaxImport()
+                initNavigation(maxImport)
+                isMaxLoaded = true
+            }
+            if ( facturas.isEmpty()){
+                binding.tvList.text= getString(R.string.not_bills_response)
+                binding.tvList.isVisible=true
+                binding.rvFacturas.isVisible=false
+            }else{
+                binding.tvList.isVisible=false
+                binding.rvFacturas.isVisible=true
+            }
         }
+        else{
+            binding.rvFacturas.isVisible=false
+            binding.tvList.apply {
+                text=getString(R.string.not_loaded_list)
+                isVisible=true
+            }
+        }
+
 
 
     }

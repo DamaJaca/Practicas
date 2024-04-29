@@ -7,6 +7,11 @@ import com.djcdev.practicas.data.RepositoryImpl
 import com.djcdev.practicas.data.database.FacturasDataBase
 import com.djcdev.practicas.domain.Repository
 import com.djcdev.practicas.ui.home.MainActivity
+import com.google.firebase.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.google.firebase.remoteconfig.remoteConfig
+import com.google.firebase.remoteconfig.remoteConfigSettings
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,6 +69,26 @@ object NetworkModule {
     @Singleton
     fun provideMockService(retromock: Retromock):MockService{
         return retromock.create(MockService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRemoteConfig():FirebaseRemoteConfig{
+        val configSettings : FirebaseRemoteConfigSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 60
+        }
+
+        val firebaseConfig :FirebaseRemoteConfig = Firebase.remoteConfig
+        firebaseConfig.setConfigSettingsAsync(configSettings)
+        firebaseConfig.setDefaultsAsync(mapOf("change_style" to false, "show_list" to true))//En caso de que no funcione internet
+
+        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
+            if (it.isSuccessful){
+                val changeStyle = Firebase.remoteConfig.getBoolean("change_style")
+                val showList = Firebase.remoteConfig.getBoolean("show_list")
+            }
+        }
+        return firebaseConfig
     }
 
 

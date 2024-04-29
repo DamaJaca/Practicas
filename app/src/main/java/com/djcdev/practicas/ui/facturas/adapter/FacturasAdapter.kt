@@ -32,7 +32,7 @@ class FacturasAdapter (private var facturasList :List<FacturaModel> = emptyList(
 
     fun getMaxImport(): Float {
 
-        return facturasList.maxOf { it.importe }.toFloat()
+        return if (facturasList.isNotEmpty()) facturasList.maxOf { it.importe }.toFloat() else 120.0f
 
     }
 
