@@ -6,16 +6,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.ActivityMainBinding
 import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
-import com.google.firebase.remoteconfig.remoteConfig
-import com.google.firebase.remoteconfig.remoteConfigSettings
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,7 +23,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var firebaseConfig: FirebaseRemoteConfig
 
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        Firebase.auth.signOut()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

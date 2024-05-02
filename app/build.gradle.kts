@@ -47,6 +47,12 @@ android {
 
 dependencies {
 
+
+
+    //JUnit y Mockito (Testing)
+    testImplementation ("junit:junit:4.12")
+    testImplementation ("org.mockito:mockito-core:3.+")
+
     //Retromock
     implementation("co.infinum:retromock:1.1.0")
 
@@ -58,6 +64,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     implementation(libs.firebase.auth)
     implementation(libs.firebase.config)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
 
     //Navigation View

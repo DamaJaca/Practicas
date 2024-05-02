@@ -12,13 +12,13 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.auth
 import javax.inject.Inject
 
-class LoginUseCase @Inject constructor() {
+class LoginUseCase @Inject constructor(private val firebaseAuth: FirebaseAuth) {
 
     operator fun invoke(user: String?, pass: String?, logged: (Boolean, FailedLogin?) -> Unit) {
 
         if (user != null && pass != null) {
-            Firebase.auth.signOut()
-            FirebaseAuth.getInstance()
+            firebaseAuth.signOut()
+            firebaseAuth
                 .signInWithEmailAndPassword(user, pass)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {

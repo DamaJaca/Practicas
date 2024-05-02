@@ -15,6 +15,7 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val rememberUserUseCase: RememberUserUseCase
 ) : ViewModel() {
+
     fun singUp(user: String, pass: String, onComplete: (Boolean, FailedSignUp?) -> Unit) {
         singUpUseCase.invoke(user, pass) { bolean, fail -> onComplete(bolean, fail) }
     }

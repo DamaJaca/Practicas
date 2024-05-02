@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -65,6 +64,7 @@ class LoginFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             getUser().filter { condition }.collect {
                 if (it.user != "" && it.pass!="" && it.user!=null) {
+
                     requireActivity().runOnUiThread {
                         binding.principalLayout.isVisible=false
                         binding.pbRememberMyUser.isVisible=true

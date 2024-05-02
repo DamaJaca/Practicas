@@ -61,8 +61,8 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
         if (fechaInicio != null && fechaFin != null) {
             //Si no se ha hecho ningun filtro previo:
             if (pagada == null && pendientePago == null && importeMax == null) {
-                facturas.map {if (compararFechas(it.fecha, fechaFin)<0 &&
-                    compararFechas(it.fecha, fechaInicio)>0
+                facturas.map {if (compararFechas(it.fecha, fechaFin)<=0 &&
+                    compararFechas(it.fecha, fechaInicio)>=0
                 ) {
                     facturasFinal.add(it)
                 }
@@ -72,8 +72,8 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
                 facturasFiltradas.addAll(facturasFinal)
                 facturasFinal.clear()
                 facturasFiltradas.map{
-                    if (compararFechas(it.fecha, fechaFin)<0 &&
-                        compararFechas(it.fecha, fechaInicio)>0
+                    if (compararFechas(it.fecha, fechaFin)<=0 &&
+                        compararFechas(it.fecha, fechaInicio)>=0
                     ) {
                         facturasFinal.add(it)
                     }
@@ -96,6 +96,8 @@ class FilterFacturasUseCase @Inject constructor (private val repository: Reposit
 
     fun compararFechas(fecha1: String, fecha2: String): Int {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+
 
         return try {
             val date1 = dateFormat.parse(fecha1)!!

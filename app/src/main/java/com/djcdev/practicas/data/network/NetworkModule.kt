@@ -8,6 +8,7 @@ import com.djcdev.practicas.data.database.FacturasDataBase
 import com.djcdev.practicas.domain.Repository
 import com.djcdev.practicas.ui.home.MainActivity
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.remoteConfig
@@ -69,6 +70,12 @@ object NetworkModule {
     @Singleton
     fun provideMockService(retromock: Retromock):MockService{
         return retromock.create(MockService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFirebaseAuth():FirebaseAuth{
+        return FirebaseAuth.getInstance()
     }
 
     @Provides
