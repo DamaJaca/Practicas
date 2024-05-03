@@ -57,6 +57,19 @@ class GetFacturasUseCaseTest{
     }
 
     @Test
+    fun `when the boolean is false so you get everything from API but its empty`() = runBlocking {
+        //arrange
+        Mockito.`when`(repository.getFacturasFromApi()).thenReturn(emptyList())
+        val expected = emptyList<FacturaModel>()
+
+        //act
+        val actual = getFacturasUseCase.invoke(false)
+
+        //assert
+        assertEquals(expected, actual)
+    }
+
+    @Test
     fun `when the boolean is false and facturasFromApi is null so you get this from Room`() = runBlocking {
         //arrange
         Mockito.`when`(repository.getFacturasFromDatabase()).thenReturn(facturas)

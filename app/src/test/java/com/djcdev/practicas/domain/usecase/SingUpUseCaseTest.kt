@@ -1,23 +1,23 @@
 package com.djcdev.practicas.domain.usecase
 
-import com.djcdev.practicas.ui.login.exceptions.FailedLogin
 import com.djcdev.practicas.ui.login.exceptions.FailedSignUp
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import java.lang.IllegalStateException
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class SingUpUseCaseTest{
     @Mock
     private lateinit var firebaseAuth: FirebaseAuth

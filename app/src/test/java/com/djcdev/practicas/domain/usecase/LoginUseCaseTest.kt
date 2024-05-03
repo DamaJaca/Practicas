@@ -1,40 +1,24 @@
 package com.djcdev.practicas.domain.usecase
 
-import android.text.TextUtils
 import com.djcdev.practicas.ui.login.exceptions.FailedLogin
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.TaskCompletionSource
-import com.google.android.gms.tasks.Tasks
-import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.auth.auth
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.runner.RunWith
-import org.mockito.ArgumentCaptor
 import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.any
-import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
-import org.mockito.MockedStatic
-import org.mockito.Mockito
-import org.mockito.Mockito.doNothing
-import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import org.w3c.dom.Text
-import java.lang.IllegalStateException
 
 @RunWith(MockitoJUnitRunner::class)
 class LoginUseCaseTest{

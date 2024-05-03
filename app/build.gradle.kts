@@ -55,6 +55,7 @@ dependencies {
     //JUnit y Mockito (Testing)
     testImplementation ("junit:junit:4.12")
     testImplementation ("org.mockito:mockito-core:3.+")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1-Beta")
 
     //Retromock
     implementation("co.infinum:retromock:1.1.0")

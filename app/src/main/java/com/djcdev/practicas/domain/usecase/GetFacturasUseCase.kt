@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetFacturasUseCase @Inject constructor(private val repository :Repository){
 
-    suspend operator fun invoke (boolean: Boolean) :List<FacturaModel>? {
+    suspend operator fun invoke (boolean: Boolean) :List<FacturaModel> {
         if (!boolean){
             var facturas: List<FacturaModel>? = repository.getFacturasFromApi()
             if (facturas!=null){

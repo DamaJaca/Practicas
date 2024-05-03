@@ -33,10 +33,10 @@ class FacturasViewModel @Inject constructor(
     fun getFacturas(boolean: Boolean) {
         viewModelScope.launch {
 
-            val result: List<FacturaModel>? = withContext(Dispatchers.IO) {
+            val result: List<FacturaModel> = withContext(Dispatchers.IO) {
                 getFacturasUseCase(boolean)
             }
-            if (result != null) {
+            if (result.isNotEmpty()) {
                 _state.value = FacturasState.Success(result)
             } else {
                 _state.value =
