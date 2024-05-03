@@ -8,10 +8,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import javax.inject.Inject
 
-class SingUpUseCase @Inject constructor() {
+class SingUpUseCase @Inject constructor(private val firebaseAuth: FirebaseAuth) {
     operator fun invoke(user: String?, pass: String?, onComplete: (Boolean, FailedSignUp?) -> Unit) {
         if (user != null && pass != null) {
-            FirebaseAuth.getInstance()
+            firebaseAuth
                 .createUserWithEmailAndPassword(user, pass)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {

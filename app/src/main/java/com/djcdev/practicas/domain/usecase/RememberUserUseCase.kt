@@ -9,9 +9,9 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import javax.inject.Inject
 
-class RememberUserUseCase @Inject constructor(){
+class RememberUserUseCase @Inject constructor(private val firebaseAuth: FirebaseAuth){
     operator fun invoke(user: String, remember: (Boolean, FailedLogin?) -> Unit){
-        FirebaseAuth.getInstance()
+        firebaseAuth
             .sendPasswordResetEmail(user)
             .addOnCompleteListener {
                 if (it.isSuccessful){ remember(true, null) }
