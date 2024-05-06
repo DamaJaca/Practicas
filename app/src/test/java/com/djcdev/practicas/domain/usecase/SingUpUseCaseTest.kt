@@ -18,7 +18,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import java.lang.Exception
 
 @RunWith(MockitoJUnitRunner::class)
 class SingUpUseCaseTest{
@@ -71,8 +70,6 @@ class SingUpUseCaseTest{
         //arrange
         val user = "test@example.com"
         val pass = "password"
-        var capturedSuccess: Boolean? = null
-        var capturedFailedLogin: FailedSignUp? = null
 
 
 

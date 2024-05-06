@@ -1,11 +1,11 @@
 package com.djcdev.practicas.ui.smartsolar
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MyPagerAdapter(manager: FragmentManager) :
-    FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class MyPagerAdapter(manager: FragmentActivity) :
+    FragmentStateAdapter(manager) {
 
     private val fragmentList = mutableListOf<Fragment>()
     private val fragmentTitleList = mutableListOf<String>()
@@ -14,11 +14,14 @@ class MyPagerAdapter(manager: FragmentManager) :
         fragmentList.add(fragment)
         fragmentTitleList.add(title)
     }
+    override fun getItemCount(): Int = fragmentList.size
 
-    override fun getCount(): Int = fragmentList.size
+    fun getTabTitle(position : Int): String{
+        return fragmentTitleList[position]
+    }
 
-    override fun getItem(position: Int): Fragment =fragmentList[position]
-
-    override fun getPageTitle(position: Int): CharSequence? = fragmentTitleList[position]
+    override fun createFragment(position: Int): Fragment {
+        return fragmentList[position]
+    }
 
 }

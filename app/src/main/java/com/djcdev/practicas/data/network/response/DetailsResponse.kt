@@ -1,7 +1,6 @@
 package com.djcdev.practicas.data.network.response
 
 import com.djcdev.practicas.domain.model.DetailModel
-import com.djcdev.practicas.domain.model.FacturasModel
 import com.google.gson.annotations.SerializedName
 
 data class DetailsResponse(

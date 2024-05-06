@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_next"
             android:padding="8dp"
-            app:tint="@color/green" />
+            app:tint="@color/green"
+            android:contentDescription="@string/back_to_login" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSmartSolar"/>
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/viewPagerSolar"

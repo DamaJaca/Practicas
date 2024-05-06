@@ -1,12 +1,10 @@
 package com.djcdev.practicas.data.network
 
-import android.app.Activity
 import android.app.Application
 import co.infinum.retromock.Retromock
 import com.djcdev.practicas.data.RepositoryImpl
 import com.djcdev.practicas.data.database.FacturasDataBase
 import com.djcdev.practicas.domain.Repository
-import com.djcdev.practicas.ui.home.MainActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -89,12 +87,6 @@ object NetworkModule {
         firebaseConfig.setConfigSettingsAsync(configSettings)
         firebaseConfig.setDefaultsAsync(mapOf("change_style" to false, "show_list" to true))//En caso de que no funcione internet
 
-        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
-            if (it.isSuccessful){
-                val changeStyle = Firebase.remoteConfig.getBoolean("change_style")
-                val showList = Firebase.remoteConfig.getBoolean("show_list")
-            }
-        }
         return firebaseConfig
     }
 

@@ -2,14 +2,13 @@ package com.djcdev.practicas.ui.login
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentForgotPasswordBinding
 import com.djcdev.practicas.ui.login.exceptions.FailedLogin
@@ -66,7 +65,7 @@ class ForgotPasswordFragment : Fragment() {
         }
     }
 
-    private fun showErrorDialog(fail: FailedLogin) {
+    private fun showErrorDialog(fail: FailedLogin?) {
         var errorMessage = ""
         errorMessage = if (fail == null) {
             "Ha ocurrido un error inesperado al intentar realizar esa acción"

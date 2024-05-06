@@ -23,7 +23,6 @@ import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import java.lang.Exception
 
 @RunWith(MockitoJUnitRunner::class)
 class LoginUseCaseTest{
@@ -53,7 +52,7 @@ class LoginUseCaseTest{
         val task = mock(Task::class.java) as Task<AuthResult>
 
         `when`(task.isSuccessful).thenReturn(true)
-        `when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
             val listener = it.arguments[0] as OnCompleteListener<AuthResult>
             listener.onComplete(task)
             task
@@ -87,12 +86,12 @@ class LoginUseCaseTest{
         val task = mock(Task::class.java) as Task<AuthResult>
 
         `when`(task.isSuccessful).thenReturn(false)
-        `when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
             val listener = it.arguments[0] as OnCompleteListener<AuthResult>
             listener.onComplete(task)
             task
         }
-        `when`(task.addOnFailureListener (ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnFailureListener (any())).thenAnswer {
             val listener = it.arguments[0] as OnFailureListener
             listener.onFailure(FirebaseAuthInvalidUserException("error", "error"))
             task
@@ -126,12 +125,12 @@ class LoginUseCaseTest{
         val task = mock(Task::class.java) as Task<AuthResult>
 
         `when`(task.isSuccessful).thenReturn(false)
-        `when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
             val listener = it.arguments[0] as OnCompleteListener<AuthResult>
             listener.onComplete(task)
             task
         }
-        `when`(task.addOnFailureListener (ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnFailureListener (any())).thenAnswer {
             val listener = it.arguments[0] as OnFailureListener
             listener.onFailure(FirebaseAuthUserCollisionException("error", "error"))
             task
@@ -165,12 +164,12 @@ class LoginUseCaseTest{
         val task = mock(Task::class.java) as Task<AuthResult>
 
         `when`(task.isSuccessful).thenReturn(false)
-        `when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
             val listener = it.arguments[0] as OnCompleteListener<AuthResult>
             listener.onComplete(task)
             task
         }
-        `when`(task.addOnFailureListener (ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnFailureListener (any())).thenAnswer {
             val listener = it.arguments[0] as OnFailureListener
             listener.onFailure(FirebaseNetworkException("error"))
             task
@@ -204,12 +203,12 @@ class LoginUseCaseTest{
         val task = mock(Task::class.java) as Task<AuthResult>
 
         `when`(task.isSuccessful).thenReturn(false)
-        `when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
             val listener = it.arguments[0] as OnCompleteListener<AuthResult>
             listener.onComplete(task)
             task
         }
-        `when`(task.addOnFailureListener (ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnFailureListener (any())).thenAnswer {
             val listener = it.arguments[0] as OnFailureListener
             listener.onFailure(FirebaseTooManyRequestsException("error"))
             task
@@ -243,12 +242,12 @@ class LoginUseCaseTest{
         val task = mock(Task::class.java) as Task<AuthResult>
 
         `when`(task.isSuccessful).thenReturn(false)
-        `when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
             val listener = it.arguments[0] as OnCompleteListener<AuthResult>
             listener.onComplete(task)
             task
         }
-        `when`(task.addOnFailureListener (ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnFailureListener (any())).thenAnswer {
             val listener = it.arguments[0] as OnFailureListener
             listener.onFailure(FirebaseAuthInvalidCredentialsException("error", "error"))
             task
@@ -282,12 +281,12 @@ class LoginUseCaseTest{
         val task = mock(Task::class.java) as Task<AuthResult>
 
         `when`(task.isSuccessful).thenReturn(false)
-        `when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
             val listener = it.arguments[0] as OnCompleteListener<AuthResult>
             listener.onComplete(task)
             task
         }
-        `when`(task.addOnFailureListener (ArgumentMatchers.any())).thenAnswer {
+        `when`(task.addOnFailureListener (any())).thenAnswer {
             val listener = it.arguments[0] as OnFailureListener
             listener.onFailure(Exception())
             task

@@ -3,14 +3,10 @@ package com.djcdev.practicas.domain.usecase
 import com.djcdev.practicas.domain.Repository
 import com.djcdev.practicas.domain.model.FacturaModel
 import kotlinx.coroutines.runBlocking
-import net.bytebuddy.matcher.ElementMatchers.any
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
-
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import java.text.SimpleDateFormat

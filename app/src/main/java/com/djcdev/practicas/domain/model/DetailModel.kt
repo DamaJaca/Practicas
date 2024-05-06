@@ -1,7 +1,5 @@
 package com.djcdev.practicas.domain.model
 
-import com.google.gson.annotations.SerializedName
-
 data class DetailModel(
     val cau : String?,
     val estado : String?,

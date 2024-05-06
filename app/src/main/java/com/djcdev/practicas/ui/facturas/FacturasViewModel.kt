@@ -1,21 +1,14 @@
 package com.djcdev.practicas.ui.facturas
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.navArgs
 import com.djcdev.practicas.domain.model.FacturaModel
-import com.djcdev.practicas.domain.model.FacturasModel
 import com.djcdev.practicas.domain.usecase.FilterFacturasUseCase
 import com.djcdev.practicas.domain.usecase.GetFacturasUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.internal.notifyAll
 import javax.inject.Inject
 
 @HiltViewModel
