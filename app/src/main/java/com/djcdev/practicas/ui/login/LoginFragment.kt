@@ -37,7 +37,7 @@ class LoginFragment : Fragment() {
     val binding get() = _binding!!
 
     private val viewModel by activityViewModels<LoginViewModel>()
-    var condition :Boolean =true
+    var condition: Boolean = true
 
 
     override fun onCreateView(
@@ -57,17 +57,20 @@ class LoginFragment : Fragment() {
     private fun initUI() {
 
 
-        binding.principalLayout.isVisible=true
-        binding.pbRememberMyUser.isVisible=false
+        binding.principalLayout.isVisible = true
+        binding.pbRememberMyUser.isVisible = false
 
 
         CoroutineScope(Dispatchers.IO).launch {
+            if (!condition) {
+                saveUser("", "")
+            }
             getUser().filter { condition }.collect {
-                if (it.user != "" && it.pass!="" && it.user!=null) {
+                if (it.user != "" && it.pass != "" && it.user != null) {
 
                     requireActivity().runOnUiThread {
-                        binding.principalLayout.isVisible=false
-                        binding.pbRememberMyUser.isVisible=true
+                        binding.principalLayout.isVisible = false
+                        binding.pbRememberMyUser.isVisible = true
                         binding.etUser.setText(it.user)
                     }
                     viewModel.login(it.user, it.pass!!) { boolean, fail ->
@@ -75,12 +78,11 @@ class LoginFragment : Fragment() {
                     }
 
                 }
-                condition=false
+                condition = false
             }
-            if (!condition){
-                saveUser("","")
-            }
+
         }
+
     }
 
     private fun initListeners() {
@@ -128,16 +130,16 @@ class LoginFragment : Fragment() {
 
 
 
-                if (binding.cbRememberPass.isChecked){
+                if (binding.cbRememberPass.isChecked) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        saveUser (binding.etUser.text.toString(), binding.etPass.text.toString())
+                        saveUser(binding.etUser.text.toString(), binding.etPass.text.toString())
                     }
-                }else{
-                    if (condition){
-                    CoroutineScope(Dispatchers.IO).launch {
-                        saveUser ("", "")
+                } else {
+                    if (condition) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            saveUser("", "")
+                        }
                     }
-                }
                 }
 
 
