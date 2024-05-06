@@ -25,7 +25,7 @@ class GetDetailsUseCaseTest{
     }
 
     @Test
-    fun `when we you get a list`() = runBlocking {
+    fun `when you get a list`() = runBlocking {
 
         //arrange
         Mockito.`when`(repository.getDetails()).thenReturn(detail)
@@ -39,7 +39,7 @@ class GetDetailsUseCaseTest{
     }
 
     @Test
-    fun `when we you get null`() = runBlocking {
+    fun `when you get null`() = runBlocking {
 
         //arrange
         Mockito.`when`(repository.getDetails()).thenReturn(null)

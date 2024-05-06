@@ -29,6 +29,13 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class FacturasViewModelTest{
 
+    val facturas = listOf(
+        FacturaModel("Pagada", 10.25, "25/10/2024"),
+        FacturaModel("Pagada", 10.25, "25/10/2024"),
+        FacturaModel("Pagada", 10.25, "25/10/2024"),
+        FacturaModel("Pagada", 10.25, "25/10/2024")
+    )
+
 
     lateinit var getFacturasUseCase: GetFacturasUseCase
     lateinit var filterFacturasUseCase: FilterFacturasUseCase
@@ -42,17 +49,12 @@ class FacturasViewModelTest{
         filterFacturasUseCase = FilterFacturasUseCase(repository)
         Dispatchers.setMain(TestCoroutineDispatcher())
         facturasViewModel = FacturasViewModel(getFacturasUseCase, filterFacturasUseCase)
+
     }
 
     @Test
     fun `when you call get facturas and it resturns a list from api`() = runBlockingTest{
         //arrange
-        val facturas = listOf(
-            FacturaModel("Pagada", 10.25, "25/10/2024"),
-            FacturaModel("Pagada", 10.25, "25/10/2024"),
-            FacturaModel("Pagada", 10.25, "25/10/2024"),
-            FacturaModel("Pagada", 10.25, "25/10/2024")
-        )
         Mockito.`when`(getFacturasUseCase.invoke(false)).thenReturn(facturas)
 
         //act
@@ -78,6 +80,21 @@ class FacturasViewModelTest{
 
         //asserts
         assertEquals(FacturasState.Error("Error al recoger la información (FacturasViewModel)"), facturasViewModel.state.value)
+    }
+
+    @Test
+    fun `when you cal filter facturas so you get a list()`() = runBlockingTest(){
+        //arrange
+        Mockito.`when`(getFacturasUseCase.invoke(false)).thenReturn(facturas)
+
+        //act
+        facturasViewModel.filterFacturas(null, null, null, null, null)
+        advanceUntilIdle()
+
+
+        //asserts
+        assertEquals(FacturasState.Success(facturas), facturasViewModel.state.value)
+
     }
 
 

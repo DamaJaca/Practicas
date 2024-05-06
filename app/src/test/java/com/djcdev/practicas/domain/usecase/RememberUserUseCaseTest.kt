@@ -4,6 +4,8 @@ import com.djcdev.practicas.ui.login.exceptions.FailedLogin
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import org.junit.Before
@@ -15,6 +17,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
+import java.lang.Exception
 
 @RunWith(MockitoJUnitRunner::class)
 class RememberUserUseCaseTest{
@@ -127,6 +130,117 @@ class RememberUserUseCaseTest{
 
         assertEquals(false, capturedSuccess)
         assertEquals(FailedLogin.InvalidUser, capturedFailedLogin)
+    }
+
+    @Test
+    fun `when you try to remember pass and it throws an FirebaseNetworkException`(){
+        //arrange
+        val user = "test@example.com"
+        var capturedSuccess: Boolean? = null
+        var capturedFailedLogin: FailedLogin? = null
+
+
+
+        //act
+        val task = Mockito.mock(Task::class.java) as Task<Void>
+
+        Mockito.`when`(task.isSuccessful).thenReturn(false)
+        Mockito.`when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+            val listener = it.arguments[0] as OnCompleteListener<Void>
+            listener.onComplete(task)
+            task
+        }
+        Mockito.`when`(task.addOnFailureListener(ArgumentMatchers.any())).thenAnswer {
+            val listener = it.arguments[0] as OnFailureListener
+            listener.onFailure(FirebaseNetworkException("error"))
+            task
+        }
+        Mockito.`when`(firebaseAuth.sendPasswordResetEmail(user)).thenReturn(task)
+
+
+        rememberUserUseCase(user) { success, failedLogin ->
+            capturedSuccess = success
+            capturedFailedLogin = failedLogin
+        }
+
+        //assert
+
+        assertEquals(false, capturedSuccess)
+        assertEquals(FailedLogin.NetworkFail, capturedFailedLogin)
+    }
+
+    @Test
+    fun `when you try to remember pass and it throws an Unknown Exception`(){
+        //arrange
+        val user = "test@example.com"
+        var capturedSuccess: Boolean? = null
+        var capturedFailedLogin: FailedLogin? = null
+
+
+
+        //act
+        val task = Mockito.mock(Task::class.java) as Task<Void>
+
+        Mockito.`when`(task.isSuccessful).thenReturn(false)
+        Mockito.`when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+            val listener = it.arguments[0] as OnCompleteListener<Void>
+            listener.onComplete(task)
+            task
+        }
+        Mockito.`when`(task.addOnFailureListener(ArgumentMatchers.any())).thenAnswer {
+            val listener = it.arguments[0] as OnFailureListener
+            listener.onFailure(Exception("error"))
+            task
+        }
+        Mockito.`when`(firebaseAuth.sendPasswordResetEmail(user)).thenReturn(task)
+
+
+        rememberUserUseCase(user) { success, failedLogin ->
+            capturedSuccess = success
+            capturedFailedLogin = failedLogin
+        }
+
+        //assert
+
+        assertEquals(false, capturedSuccess)
+        assertEquals(null, capturedFailedLogin)
+    }
+
+    @Test
+    fun `when you try to remember pass and it throws an FirebaseTooManyRequestsException`(){
+        //arrange
+        val user = "test@example.com"
+        var capturedSuccess: Boolean? = null
+        var capturedFailedLogin: FailedLogin? = null
+
+
+
+        //act
+        val task = Mockito.mock(Task::class.java) as Task<Void>
+
+        Mockito.`when`(task.isSuccessful).thenReturn(false)
+        Mockito.`when`(task.addOnCompleteListener(ArgumentMatchers.any())).thenAnswer {
+            val listener = it.arguments[0] as OnCompleteListener<Void>
+            listener.onComplete(task)
+            task
+        }
+        Mockito.`when`(task.addOnFailureListener(ArgumentMatchers.any())).thenAnswer {
+            val listener = it.arguments[0] as OnFailureListener
+            listener.onFailure(FirebaseTooManyRequestsException("error"))
+            task
+        }
+        Mockito.`when`(firebaseAuth.sendPasswordResetEmail(user)).thenReturn(task)
+
+
+        rememberUserUseCase(user) { success, failedLogin ->
+            capturedSuccess = success
+            capturedFailedLogin = failedLogin
+        }
+
+        //assert
+
+        assertEquals(false, capturedSuccess)
+        assertEquals(FailedLogin.TooManyRequests, capturedFailedLogin)
     }
 
 

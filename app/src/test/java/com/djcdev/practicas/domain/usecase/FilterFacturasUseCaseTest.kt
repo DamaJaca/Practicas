@@ -3,14 +3,17 @@ package com.djcdev.practicas.domain.usecase
 import com.djcdev.practicas.domain.Repository
 import com.djcdev.practicas.domain.model.FacturaModel
 import kotlinx.coroutines.runBlocking
+import net.bytebuddy.matcher.ElementMatchers.any
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
+import java.text.SimpleDateFormat
 
 @RunWith(MockitoJUnitRunner::class)
 class FilterFacturasUseCaseTest {
@@ -18,10 +21,12 @@ class FilterFacturasUseCaseTest {
     private lateinit var repository:Repository
     private lateinit var filterFacturasUseCase: FilterFacturasUseCase
     private lateinit var facturas:List<FacturaModel>
+    private lateinit var simple : SimpleDateFormat
 
 
     @Before
     fun onBefore() {
+        simple = Mockito.mock(SimpleDateFormat::class.java)
         repository = Mockito.mock(Repository::class.java)
         filterFacturasUseCase = FilterFacturasUseCase(repository)
         facturas = listOf(
@@ -32,7 +37,6 @@ class FilterFacturasUseCaseTest {
         )
     }
 
-    //Hemos comprobado que funciona tanto get facturasFromDatabase como por Mock, asi que solo vamos a hacer test teniendo en cuenta una de ellas, ya que es indiferente una u otra
 
     @Test
     fun `when we get a model with all null, we get the whole list`() = runBlocking {
@@ -42,6 +46,20 @@ class FilterFacturasUseCaseTest {
 
         //act
         val actual = filterFacturasUseCase.invoke(null, null, null, null, null, false)
+
+        //assert
+        assertEquals(expected, actual)
+    }
+
+
+    @Test
+    fun `when we get a model with all null, we get the whole list from Mock`() = runBlocking {
+        //arrange
+        Mockito.`when`(repository.getFacturasFromMock()).thenReturn(facturas)
+        val expected = facturas
+
+        //act
+        val actual = filterFacturasUseCase.invoke(null, null, null, null, null, true)
 
         //assert
         assertEquals(expected, actual)
@@ -123,6 +141,22 @@ class FilterFacturasUseCaseTest {
 
         //act
         val actual = filterFacturasUseCase.invoke(null, null, null, "25/10/2024", "20/10/2024", false)
+
+        //assert
+        assertEquals(expected, actual)
+    }
+    @Test
+    fun `when we get a model with a date but it doesnt have the right format (You will get an emptyList())`() = runBlocking {
+        //No podemos tener solo fecha de inicio o fecha de fin, dado que está contemplado eso en la ui, si cambias fecha inicio o fecha fin
+        //por algo que no sea lo preestablecio, la otra se pondrá automáticamente (misma fecha si cambiaste fecha final, fecha actual si cambiaste la inicial)
+
+
+        //arrange
+        Mockito.`when`(repository.getFacturasFromDatabase()).thenReturn(facturas)
+        val expected = emptyList<FacturaModel>()
+
+        //act
+        val actual = filterFacturasUseCase.invoke(null, null, null, null, "20/10/2024", false)
 
         //assert
         assertEquals(expected, actual)
