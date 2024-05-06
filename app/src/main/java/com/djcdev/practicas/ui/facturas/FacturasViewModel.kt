@@ -33,9 +33,8 @@ class FacturasViewModel @Inject constructor(
     fun getFacturas(boolean: Boolean) {
         viewModelScope.launch {
 
-            val result: List<FacturaModel> = withContext(Dispatchers.IO) {
-                getFacturasUseCase(boolean)
-            }
+            val result: List<FacturaModel> = getFacturasUseCase(boolean)
+
             if (result.isNotEmpty()) {
                 _state.value = FacturasState.Success(result)
             } else {
@@ -55,7 +54,7 @@ class FacturasViewModel @Inject constructor(
         switchState=true
         viewModelScope.launch {
 
-             withContext(Dispatchers.Default) {
+
 
                 val filteredResults = filterFacturasUseCase.invoke(
                     pendientePago,
@@ -68,7 +67,7 @@ class FacturasViewModel @Inject constructor(
 
                 _state.value = FacturasState.Success(filteredResults)
 
-            }
+
         }
     }
 }
