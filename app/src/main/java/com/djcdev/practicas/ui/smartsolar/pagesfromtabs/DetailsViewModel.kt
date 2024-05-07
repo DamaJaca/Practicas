@@ -19,9 +19,8 @@ class DetailsViewModel @Inject constructor(private val getDetailsUseCase: GetDet
     fun getDetails(){
         viewModelScope.launch {
 
-            val result: DetailModel? = withContext(Dispatchers.IO) {
-                getDetailsUseCase()
-            }
+            val result: DetailModel? = getDetailsUseCase()
+
             if (result != null) {
                 _details.value = result
             } else {

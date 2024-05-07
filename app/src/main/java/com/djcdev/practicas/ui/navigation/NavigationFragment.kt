@@ -54,6 +54,7 @@ class NavigationFragment : Fragment() {
                 webViewClient= WebViewClient()
                 loadUrl(URL_DESTINO)
             }
+
         }
     }
 }
