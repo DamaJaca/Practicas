@@ -17,7 +17,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import java.lang.Exception
 
 @RunWith(MockitoJUnitRunner::class)
 class RememberUserUseCaseTest{
@@ -38,7 +37,6 @@ class RememberUserUseCaseTest{
     fun `when you try to remember pass and it is succesfull`(){
         //arrange
         val user = "test@example.com"
-        val pass = "password"
         var capturedSuccess: Boolean? = null
         var capturedFailedLogin: FailedLogin? = null
 

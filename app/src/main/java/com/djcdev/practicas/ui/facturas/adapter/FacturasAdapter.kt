@@ -1,12 +1,11 @@
 package com.djcdev.practicas.ui.facturas.adapter
 
-import android.app.AlertDialog
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.djcdev.practicas.R
 import com.djcdev.practicas.domain.model.FacturaModel
-import com.djcdev.practicas.domain.model.FacturasModel
 
 class FacturasAdapter (private var facturasList :List<FacturaModel> = emptyList(), private val inSelected:()->Unit):RecyclerView.Adapter<FacturasViewHolder>(){
 
@@ -25,6 +24,7 @@ class FacturasAdapter (private var facturasList :List<FacturaModel> = emptyList(
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateList(lista :List<FacturaModel>){
         facturasList = lista
         notifyDataSetChanged()

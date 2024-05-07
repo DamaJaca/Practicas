@@ -1,12 +1,10 @@
 package com.djcdev.practicas.data.database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.djcdev.practicas.data.database.entities.FacturaEntity
-import com.djcdev.practicas.domain.model.FacturaModel
 
 @Dao
 interface FacturaDao {

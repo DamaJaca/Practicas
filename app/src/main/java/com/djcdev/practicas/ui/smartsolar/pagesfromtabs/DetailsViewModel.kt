@@ -3,13 +3,10 @@ package com.djcdev.practicas.ui.smartsolar.pagesfromtabs
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.djcdev.practicas.domain.model.DetailModel
-import com.djcdev.practicas.domain.model.FacturaModel
 import com.djcdev.practicas.domain.usecase.GetDetailsUseCase
-import com.djcdev.practicas.ui.facturas.FacturasState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -22,9 +19,8 @@ class DetailsViewModel @Inject constructor(private val getDetailsUseCase: GetDet
     fun getDetails(){
         viewModelScope.launch {
 
-            val result: DetailModel? = withContext(Dispatchers.IO) {
-                getDetailsUseCase()
-            }
+            val result: DetailModel? = getDetailsUseCase()
+
             if (result != null) {
                 _details.value = result
             } else {

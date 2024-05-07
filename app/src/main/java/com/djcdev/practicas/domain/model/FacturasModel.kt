@@ -1,7 +1,6 @@
 package com.djcdev.practicas.domain.model
 
 import com.djcdev.practicas.data.database.entities.FacturaEntity
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 

@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         firebaseConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful){
-                Log.i("PACO", firebaseConfig.getBoolean("change_style").toString())
 
                 if (firebaseConfig.getBoolean("change_style")){
                     setTheme(R.style.Theme_Practicas_Changed)

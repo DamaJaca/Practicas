@@ -1,36 +1,25 @@
 package com.djcdev.practicas.ui.facturas
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navArgument
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.djcdev.practicas.R
 import com.djcdev.practicas.databinding.FragmentFacturasBinding
 import com.djcdev.practicas.domain.model.FacturaModel
 import com.djcdev.practicas.ui.facturas.adapter.FacturasAdapter
-import com.djcdev.practicas.ui.home.MainActivity
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @AndroidEntryPoint
 class FacturasFragment : Fragment() {
@@ -62,7 +51,7 @@ class FacturasFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFacturasBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -83,7 +72,7 @@ class FacturasFragment : Fragment() {
                 facturasViewModel.switchState=false
             }else{
                 isMaxLoaded = false
-                var message =if (isChecked){
+                val message =if (isChecked){
                     "Mock"
                 }else{"Retrofit" }
                 Toast.makeText(requireContext(), "Ahora esta cargando la lista desde ${message}", Toast.LENGTH_SHORT).show()
