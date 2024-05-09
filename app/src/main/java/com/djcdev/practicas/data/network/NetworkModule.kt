@@ -109,7 +109,7 @@ object NetworkModule {
 
         val firebaseConfig :FirebaseRemoteConfig = Firebase.remoteConfig
         firebaseConfig.setConfigSettingsAsync(configSettings)
-        firebaseConfig.setDefaultsAsync(mapOf("change_style" to false, "show_list" to true))//En caso de que no funcione internet
+        firebaseConfig.setDefaultsAsync(mapOf("change_style" to false, "show_list" to true, "ktor_client" to false))//En caso de que no funcione internet
 
         return firebaseConfig
     }

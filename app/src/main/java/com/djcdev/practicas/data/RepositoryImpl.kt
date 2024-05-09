@@ -73,8 +73,7 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFacturasFromKtor():List<FacturaModel>{
-        val json= ktor
-            .get { url("https://viewnextandroid.wiremockapi.cloud/facturas") }
+        val json= ktor.get { url("https://viewnextandroid.wiremockapi.cloud/facturas") }
         return Json.decodeFromString<FacturasHtmlResponse>(json.bodyAsText()).facturas.map { it.toDomain() }
     }
 
