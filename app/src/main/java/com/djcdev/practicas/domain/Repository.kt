@@ -11,6 +11,8 @@ interface Repository {
     suspend fun getDetails(): DetailModel?
 
     suspend fun getFacturasFromDatabase(): List<FacturaModel>?
+    suspend fun getFacturasFromKtor(): List<FacturaModel>?
     suspend fun insertFacturas(facturas:List<FacturaEntity>)
     suspend fun clearAll()
+
 }

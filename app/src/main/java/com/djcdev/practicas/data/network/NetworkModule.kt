@@ -15,6 +15,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.http.ContentType
+import io.ktor.serialization.kotlinx.json.json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -47,10 +54,27 @@ object NetworkModule {
         return retrofit.create(ApiService::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideClient():HttpClient{
+        return HttpClient(CIO){
+            install(ContentNegotiation){
+                json(
+                    contentType = ContentType.Application.Json,
+                    json = kotlinx.serialization.json.Json {
+                        ignoreUnknownKeys = true // Opcional: Ignorar claves desconocidas en el JSON
+                    })
+            }
+            install(Logging){
+                level= LogLevel.ALL
+            }
+        }
+    }
+
 
     @Provides
-    fun provideRepository (apiService: ApiService, db: FacturasDataBase, mockService: MockService):Repository{
-        return RepositoryImpl(apiService, db, mockService)
+    fun provideRepository (apiService: ApiService, db: FacturasDataBase, mockService: MockService, ktor:HttpClient):Repository{
+        return RepositoryImpl(apiService, db, mockService, ktor)
     }
 
     @Provides

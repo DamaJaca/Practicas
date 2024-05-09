@@ -7,25 +7,23 @@ import javax.inject.Inject
 class GetFacturasUseCase @Inject constructor(private val repository :Repository){
 
     suspend operator fun invoke (boolean: Boolean) :List<FacturaModel> {
-        if (!boolean){
-            var facturas: List<FacturaModel>? = repository.getFacturasFromApi()
-            if (facturas!=null){
-                if(facturas.isNotEmpty()){
-                    repository.clearAll()
-                    repository.insertFacturas(facturas.map { it.toDatabase() })
-                }
-//                else {
-//                    facturas = repository.getFacturasFromDatabase() ?: emptyList()
+//        if (!boolean){
+//            var facturas: List<FacturaModel>? = repository.getFacturasFromApi()
+//            if (facturas!=null){
+//                if(facturas.isNotEmpty()){
+//                    repository.clearAll()
+//                    repository.insertFacturas(facturas.map { it.toDatabase() })
 //                }
-            }else{
-                facturas = repository.getFacturasFromDatabase() ?: emptyList()
-            }
-            return facturas
-        }
-        else {
-            return repository.getFacturasFromMock() ?: emptyList()
-
-        }
+//            }else{
+//                facturas = repository.getFacturasFromDatabase() ?: emptyList()
+//            }
+//            return facturas
+//        }
+//        else {
+//            return repository.getFacturasFromMock() ?: emptyList()
+//
+//        }
+        return repository.getFacturasFromKtor() ?: emptyList()
 
     }
 

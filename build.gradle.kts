@@ -1,6 +1,8 @@
 buildscript {
     dependencies {
         classpath(libs.google.services)
+        //Ktor
+        classpath("org.jetbrains.kotlin:kotlin-serialization:1.5.21")
     }
 }
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -13,5 +15,8 @@ plugins {
 
     //SafeArgs
     id ("androidx.navigation.safeargs.kotlin") version "2.7.7" apply false
+
+
+
 
 }
