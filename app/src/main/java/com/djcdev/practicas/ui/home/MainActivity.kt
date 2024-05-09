@@ -23,10 +23,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var firebaseConfig: FirebaseRemoteConfig
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Firebase.auth.signOut()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
