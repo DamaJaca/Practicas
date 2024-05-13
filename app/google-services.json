@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "902171679519",
+    "project_id": "practicas-e1818",
+    "storage_bucket": "practicas-e1818.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902171679519:android:312d423136422d54872e2a",
+        "android_client_info": {
+          "package_name": "com.djcdev.practicas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApaiWBbHiOnBKfAd8FQ0U-hfUqjuvB5Oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
