@@ -71,7 +71,7 @@ class FilterFragment : Fragment() {
                         binding.cbPaid.isChecked = it.pagado
                         binding.cbPendientePago.isChecked = it.pendientePago
                         binding.sliderPriceFactura.value =
-                            String.format("%.2f", it.importeMax).toFloat()
+                            String.format(Locale.US, "%.2f", it.importeMax).toFloat()
                         binding.btnFromFacturasFilter.text = it.fechaInicio
                         binding.btnToFacturasFilter.text = it.fechaFin
                     }
