@@ -51,7 +51,7 @@ class FacturasViewModelTest{
     @Test
     fun `when you call get facturas and it resturns a list from api`() = runTest{
         //arrange
-        Mockito.`when`(getFacturasUseCase.invoke(false)).thenReturn(facturas)
+        Mockito.`when`(getFacturasUseCase.invoke(false, false)).thenReturn(facturas)
 
         //act
         run{facturasViewModel.getFacturas(false)}
@@ -68,7 +68,7 @@ class FacturasViewModelTest{
     @Test
     fun `when you call get facturas and it resturns an emptyList`() = runTest{
         //arrange
-        Mockito.`when`(getFacturasUseCase.invoke(false)).thenReturn(null)
+        Mockito.`when`(getFacturasUseCase.invoke(false, false)).thenReturn(null)
 
         //act
         facturasViewModel.getFacturas(false)
@@ -82,7 +82,7 @@ class FacturasViewModelTest{
     @Test
     fun `when you cal filter facturas so you get a list()`() = runTest{
         //arrange
-        Mockito.`when`(getFacturasUseCase.invoke(false)).thenReturn(facturas)
+        Mockito.`when`(getFacturasUseCase.invoke(false, false)).thenReturn(facturas)
 
         //act
         facturasViewModel.filterFacturas(null, null, null, null, null)
@@ -98,7 +98,7 @@ class FacturasViewModelTest{
     @Test
     fun `when you cal filter facturas so you get an emptyList()`() = runTest(){
         //arrange
-        Mockito.`when`(getFacturasUseCase.invoke(false)).thenReturn(facturas)
+        Mockito.`when`(getFacturasUseCase.invoke(false, false )).thenReturn(facturas)
 
         //act
         facturasViewModel.filterFacturas(null, null, null, "20/10/2024", "19/10/2024")

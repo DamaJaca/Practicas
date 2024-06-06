@@ -37,7 +37,7 @@ class GetFacturasUseCaseTest{
         val expected = facturas
 
         //act
-        val actual = getFacturasUseCase.invoke(true)
+        val actual = getFacturasUseCase.invoke(true, false)
 
         //assert
         assertEquals(expected, actual)
@@ -50,7 +50,7 @@ class GetFacturasUseCaseTest{
         val expected = facturas
 
         //act
-        val actual = getFacturasUseCase.invoke(false)
+        val actual = getFacturasUseCase.invoke(false, false)
 
         //assert
         assertEquals(expected, actual)
@@ -63,7 +63,7 @@ class GetFacturasUseCaseTest{
         val expected = emptyList<FacturaModel>()
 
         //act
-        val actual = getFacturasUseCase.invoke(false)
+        val actual = getFacturasUseCase.invoke(false, false)
 
         //assert
         assertEquals(expected, actual)
@@ -77,7 +77,7 @@ class GetFacturasUseCaseTest{
         val expected = facturas
 
         //act
-        val actual = getFacturasUseCase.invoke(false)
+        val actual = getFacturasUseCase.invoke(false, false)
 
         //assert
         assertEquals(expected, actual)
@@ -91,7 +91,7 @@ class GetFacturasUseCaseTest{
             val expected = emptyList<FacturaModel>()
 
             //act
-            val actual = getFacturasUseCase.invoke(false)
+            val actual = getFacturasUseCase.invoke(false, false)
 
             //assert
             assertEquals(expected, actual)
@@ -106,7 +106,7 @@ class GetFacturasUseCaseTest{
             val expected = emptyList<FacturaModel>()
 
             //act
-            val actual = getFacturasUseCase.invoke(false)
+            val actual = getFacturasUseCase.invoke(false, false)
 
             //assert
             assertEquals(expected, actual)
@@ -120,7 +120,7 @@ class GetFacturasUseCaseTest{
             val expected = emptyList<FacturaModel>()
 
             //act
-            val actual = getFacturasUseCase.invoke(true)
+            val actual = getFacturasUseCase.invoke(true, false)
 
             //assert
             assertEquals(expected, actual)
